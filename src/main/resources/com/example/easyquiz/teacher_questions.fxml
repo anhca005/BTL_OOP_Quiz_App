@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.easyquiz.controller.TeacherQuestionController"
+      spacing="10">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+
+    <Label text="📘 Quản lý Câu hỏi" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <!-- Bảng hiển thị câu hỏi -->
+    <TableView fx:id="questionTable" prefHeight="200">
+        <columns>
+            <TableColumn fx:id="idColumn" text="ID" prefWidth="60"/>
+            <TableColumn fx:id="questionColumn" text="Câu hỏi" prefWidth="300"/>
+            <TableColumn fx:id="correctColumn" text="Đáp án đúng" prefWidth="150"/>
+        </columns>
+    </TableView>
+
+    <Separator/>
+
+    <!-- Nhập câu hỏi mới -->
+    <GridPane hgap="10" vgap="8">
+        <Label text="Câu hỏi:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="questionField" GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
+
+        <Label text="A:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="option1Field" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="B:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+        <TextField fx:id="option2Field" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+        <Label text="C:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TextField fx:id="option3Field" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <Label text="D:" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+        <TextField fx:id="option4Field" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+
+        <Label text="Đáp án đúng:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <TextField fx:id="correctField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="➕ Thêm" onAction="#handleAddQuestion"/>
+        <Button text="✏️ Sửa" onAction="#handleEditQuestion"/>
+        <Button text="🗑️ Xóa" onAction="#handleDeleteQuestion"/>
+        <Button text="⬅️ Quay lại" onAction="#handleBack"/>
+    </HBox>
+
+</VBox>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.easyquiz.controller.TeacherHomeController"
+      alignment="CENTER" spacing="20">
+
+    <Label fx:id="welcomeLabel" text="Xin chào Giáo viên"/>
+    <Button text="Quản lý câu hỏi" onAction="#handleManageQuestions"/>
+    <Button text="Đăng xuất" onAction="#handleLogout"/>
+
+</VBox>
