@@ -21,7 +21,7 @@ public class TeacherHomeController {
 
     public void setCurrentUser(User user) {
         this.currentUser = user;
-        welcomeLabel.setText("Xin chào Giáo viên: " + user.getUsername());
+        welcomeLabel.setText("Xin chào Giáo viên: " + user.getUser_name());
     }
 
     @FXML

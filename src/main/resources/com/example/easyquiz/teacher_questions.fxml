@@ -12,8 +12,15 @@
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
-
     <Label text="📘 Quản lý Câu hỏi" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <!-- Quản lý bộ câu hỏi -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Tên bộ câu hỏi:"/>
+        <TextField fx:id="setNameField" promptText="Nhập tên bộ..."/>
+        <Button text="💾 Lưu bộ câu hỏi" onAction="#handleSaveQuestionSet"/>
+        <Button text="📂 Tải bộ câu hỏi" onAction="#handleLoadQuestionSet"/>
+    </HBox>
 
     <!-- Bảng hiển thị câu hỏi -->
     <TableView fx:id="questionTable" prefHeight="200">
