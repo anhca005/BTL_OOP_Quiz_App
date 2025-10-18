@@ -1,6 +1,6 @@
 package com.example.easyquiz.controller;
 
-import com.example.easyquiz.data.UserData;
+import com.example.easyquiz.data.dao.UserDAO;
 import com.example.easyquiz.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,12 +11,14 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.List;
 
 public class RegisterController {
 
     @FXML
-    private TextField usernameField;
+    private TextField nameField; // tên hiển thị (user_name)
+
+    @FXML
+    private TextField emailField;
 
     @FXML
     private PasswordField passwordField;
@@ -35,62 +37,72 @@ public class RegisterController {
 
     @FXML
     private void initialize() {
+        // Vai trò mặc định
         roleChoiceBox.getItems().addAll("student", "teacher");
-        roleChoiceBox.setValue("student"); // mặc định
+        roleChoiceBox.setValue("student");
 
         registerBtn.setOnAction(this::handleRegister);
-        backBtn.setOnAction(this::backToLogin);
+        backBtn.setOnAction(this::handleBackToLogin);
     }
 
     private void handleRegister(ActionEvent event) {
-        String username = usernameField.getText().trim();
+        String name = nameField.getText().trim();
+        String email = emailField.getText().trim();
         String password = passwordField.getText().trim();
         String confirm = confirmPasswordField.getText().trim();
         String role = roleChoiceBox.getValue();
 
-        if (username.isEmpty() || password.isEmpty() || confirm.isEmpty()) {
-            showAlert("Lỗi", "Vui lòng nhập đầy đủ thông tin");
+        // --- Kiểm tra hợp lệ ---
+        if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirm.isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Thiếu thông tin", "Vui lòng nhập đầy đủ tất cả các trường.");
             return;
         }
 
         if (!password.equals(confirm)) {
-            showAlert("Lỗi", "Mật khẩu xác nhận không khớp");
+            showAlert(Alert.AlertType.WARNING, "Mật khẩu không khớp", "Vui lòng nhập lại mật khẩu.");
             return;
         }
 
-        List<User> users = UserData.loadUsers();
-        boolean exists = users.stream().anyMatch(u -> u.getUsername().equals(username));
-        if (exists) {
-            showAlert("Lỗi", "Username đã tồn tại");
+        if (UserDAO.isEmailTaken(email)) {
+            showAlert(Alert.AlertType.ERROR, "Email đã tồn tại", "Vui lòng chọn email khác.");
             return;
         }
 
-        User newUser = new User(username, password, role);
-        users.add(newUser);
-        UserData.saveUsers(users);
+        // --- Thêm user vào database ---
+        User user = new User();
+        user.setUser_name(name);
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setRole(role);
+        user.setAverage_score(role.equals("student") ? 0.0 : 0);
 
-        showAlert("Thành công", "Đăng ký thành công! Bạn có thể đăng nhập.");
-
-        backToLogin(null); // quay lại login sau khi đăng ký
+        int newId = UserDAO.addUser(user);
+        if (newId > 0) {
+            showAlert(Alert.AlertType.INFORMATION, "Thành công", "Đăng ký tài khoản thành công! Quay lại đăng nhập.");
+            handleBackToLogin(event);
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể tạo tài khoản. Vui lòng thử lại.");
+        }
     }
 
-    private void backToLogin(ActionEvent event) {
+    private void handleBackToLogin(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/easyquiz/login.fxml"));
             Parent root = loader.load();
-
-            Stage stage = (Stage) usernameField.getScene().getWindow();
+            Stage stage = (Stage) nameField.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Đăng nhập");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể quay lại màn hình đăng nhập!");
         }
     }
 
-    private void showAlert(String title, String msg) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    private void showAlert(Alert.AlertType type, String title, String msg) {
+        Alert alert = new Alert(type);
         alert.setTitle(title);
+        alert.setHeaderText(null);
         alert.setContentText(msg);
         alert.showAndWait();
     }

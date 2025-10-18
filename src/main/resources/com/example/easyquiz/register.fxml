@@ -12,11 +12,12 @@
 
     <Label text="Đăng ký tài khoản" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
 
-    <TextField fx:id="usernameField" promptText="Username"/>
-    <PasswordField fx:id="passwordField" promptText="Password"/>
-    <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password"/>
+    <TextField fx:id="nameField" promptText="Họ và tên"/>
+    <TextField fx:id="emailField" promptText="Email"/>
+    <PasswordField fx:id="passwordField" promptText="Mật khẩu"/>
+    <PasswordField fx:id="confirmPasswordField" promptText="Xác nhận mật khẩu"/>
 
-    <ChoiceBox fx:id="roleChoiceBox"/>
+    <ChoiceBox fx:id="roleChoiceBox" prefWidth="200"/>
 
     <HBox spacing="10" alignment="CENTER">
         <Button fx:id="registerBtn" text="Đăng ký"/>

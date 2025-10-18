@@ -20,7 +20,7 @@ public class TeacherHomeController {
     public void setCurrentUser(User user) {
         this.currentUser = user;
         if (welcomeLabel != null) {
-            welcomeLabel.setText("Welcome, teacher " + user.getUsername() + "!");
+            welcomeLabel.setText("Welcome, teacher " + user.getUser_name() + "!");
         }
     }
 
