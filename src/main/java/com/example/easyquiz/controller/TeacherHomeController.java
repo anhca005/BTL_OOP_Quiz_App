@@ -15,15 +15,40 @@ public class TeacherHomeController {
     @FXML
     private Label welcomeLabel;
 
-
-
     private User currentUser;
 
     public void setCurrentUser(User user) {
         this.currentUser = user;
-        welcomeLabel.setText("Xin chào Giáo viên: " + user.getUsername());
+        if (welcomeLabel != null) {
+            welcomeLabel.setText("Welcome, teacher " + user.getUsername() + "!");
+        }
     }
 
+    /**
+     * Chuyển sang trang quản lý câu hỏi khi bấm “Create quiz”
+     */
+    @FXML
+    private void handleManageQuestions() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/easyquiz/teacher_questions.fxml"));
+            Parent root = loader.load();
+
+            // Lấy controller của trang tiếp theo và truyền thông tin user
+            TeacherQuestionController controller = loader.getController();
+            controller.setCurrentUser(currentUser);
+
+            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Question Management");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Xử lý đăng xuất (từ menu hoặc nút ▼ sau này)
+     */
     @FXML
     private void handleLogout() {
         try {
@@ -32,30 +57,10 @@ public class TeacherHomeController {
 
             Stage stage = (Stage) welcomeLabel.getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("Đăng nhập");
+            stage.setTitle("Login");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    @FXML
-    private void handleManageQuestions() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/easyquiz/teacher_questions.fxml"));
-            Parent root = loader.load();
-
-            // Truyền thông tin user sang màn hình quản lý câu hỏi
-            TeacherQuestionController controller = loader.getController();
-            controller.setCurrentUser(currentUser);
-
-            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Quản lý câu hỏi");
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

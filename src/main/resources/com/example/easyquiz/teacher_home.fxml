@@ -1,16 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Button?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
 
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.easyquiz.controller.TeacherHomeController"
-      alignment="CENTER" spacing="20">
+<AnchorPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.easyquiz.controller.TeacherHomeController"
+            prefWidth="900.0"
+            prefHeight="600.0"
+            stylesheets="@teacher_home.css">
 
-    <Label fx:id="welcomeLabel" text="Xin chào Giáo viên"/>
-    <Button text="Quản lý câu hỏi" onAction="#handleManageQuestions"/>
-    <Button text="Đăng xuất" onAction="#handleLogout"/>
+    <children>
+        <!-- Nền gradient -->
+        <Rectangle width="900" height="600">
+            <fill>
+                <LinearGradient startX="0" startY="0" endX="0" endY="1">
+                    <stops>
+                        <Stop offset="0" color="#4facfe"/>
+                        <Stop offset="1" color="#00f2fe"/>
+                    </stops>
+                </LinearGradient>
+            </fill>
+        </Rectangle>
 
-</VBox>
+        <!-- Thanh menu trên cùng -->
+        <HBox spacing="20" alignment="CENTER_RIGHT" prefHeight="60" layoutY="0" styleClass="navbar">
+            <children>
+                <Label text="QuizApp" styleClass="logo" HBox.hgrow="ALWAYS" />
+                <HBox spacing="20" alignment="CENTER_RIGHT">
+                    <Label text="Home" styleClass="nav-item"/>
+                    <Label text="Library" styleClass="nav-item"/>
+                    <Label text="Class" styleClass="nav-item"/>
+                </HBox>
+                <Button text="▼" styleClass="user-btn"/>
+            </children>
+            <padding>
+                <Insets left="30" right="30"/>
+            </padding>
+        </HBox>
+
+        <!-- Nội dung chính -->
+        <VBox alignment="CENTER" spacing="20" layoutX="0" layoutY="60" prefWidth="900" prefHeight="540">
+            <Label fx:id="welcomeLabel" text="Welcome, teacher!" styleClass="welcome-text"/>
+            <Button text="Create quiz" onAction="#handleManageQuestions" styleClass="create-btn"/>
+        </VBox>
+    </children>
+
+</AnchorPane>
