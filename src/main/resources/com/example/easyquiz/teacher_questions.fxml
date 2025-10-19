@@ -12,21 +12,22 @@
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
-    <Label text="📘 Quản lý Câu hỏi" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+    <!-- Tiêu đề -->
+    <Label text="📘 Quản lý Câu hỏi" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
 
     <!-- Quản lý bộ câu hỏi -->
     <HBox spacing="10" alignment="CENTER_LEFT">
-        <Label text="Tên bộ câu hỏi:"/>
-        <TextField fx:id="setNameField" promptText="Nhập tên bộ..."/>
-        <Button text="💾 Lưu bộ câu hỏi" onAction="#handleSaveQuestionSet"/>
-        <Button text="📂 Tải bộ câu hỏi" onAction="#handleLoadQuestionSet"/>
+        <Label text="Bộ câu hỏi:"/>
+        <ComboBox fx:id="quizComboBox" promptText="Chọn bộ câu hỏi..." prefWidth="200"/>
+        <TextField fx:id="setNameField" promptText="Tên bộ mới..." prefWidth="180"/>
+        <Button text="➕ Tạo mới" onAction="#handleSaveQuestionSet"/>
     </HBox>
 
     <!-- Bảng hiển thị câu hỏi -->
-    <TableView fx:id="questionTable" prefHeight="200">
+    <TableView fx:id="questionTable" prefHeight="220">
         <columns>
-            <TableColumn fx:id="idColumn" text="ID" prefWidth="60"/>
-            <TableColumn fx:id="questionColumn" text="Câu hỏi" prefWidth="300"/>
+            <TableColumn fx:id="idColumn" text="ID" prefWidth="50"/>
+            <TableColumn fx:id="questionColumn" text="Câu hỏi" prefWidth="350"/>
             <TableColumn fx:id="correctColumn" text="Đáp án đúng" prefWidth="150"/>
         </columns>
     </TableView>
@@ -36,7 +37,7 @@
     <!-- Nhập câu hỏi mới -->
     <GridPane hgap="10" vgap="8">
         <Label text="Câu hỏi:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-        <TextField fx:id="questionField" GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
+        <TextField fx:id="questionField" GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.columnSpan="3" promptText="Nhập nội dung câu hỏi..."/>
 
         <Label text="A:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
         <TextField fx:id="option1Field" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
@@ -54,6 +55,7 @@
         <TextField fx:id="correctField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
     </GridPane>
 
+    <!-- Nút thao tác -->
     <HBox spacing="10" alignment="CENTER">
         <Button text="➕ Thêm" onAction="#handleAddQuestion"/>
         <Button text="✏️ Sửa" onAction="#handleEditQuestion"/>

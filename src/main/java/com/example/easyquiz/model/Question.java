@@ -7,6 +7,7 @@ import javafx.beans.property.*;
  * Hỗ trợ JavaFX Property để hiển thị và binding trong TableView.
  */
 public class Question {
+
     private final IntegerProperty id;
     private final StringProperty questionText;
     private final StringProperty option1;
@@ -15,20 +16,25 @@ public class Question {
     private final StringProperty option4;
     private final StringProperty correctAnswer;
 
-    // --- Constructor ---
+    // --- Constructor chính ---
     public Question(int id, String questionText, String[] options, String correctAnswer) {
         this.id = new SimpleIntegerProperty(id);
         this.questionText = new SimpleStringProperty(questionText);
+
+        // ✅ Nếu options == null, thay bằng mảng rỗng
+        if (options == null) {
+            options = new String[0];
+        }
 
         this.option1 = new SimpleStringProperty(options.length > 0 ? options[0] : "");
         this.option2 = new SimpleStringProperty(options.length > 1 ? options[1] : "");
         this.option3 = new SimpleStringProperty(options.length > 2 ? options[2] : "");
         this.option4 = new SimpleStringProperty(options.length > 3 ? options[3] : "");
 
-        this.correctAnswer = new SimpleStringProperty(correctAnswer);
+        this.correctAnswer = new SimpleStringProperty(correctAnswer != null ? correctAnswer : "");
     }
 
-    // Constructor rỗng (cần thiết cho JSON hoặc khởi tạo mặc định)
+    // --- Constructor mặc định (dành cho JSON hoặc tạo trống)
     public Question() {
         this(0, "", new String[]{"", "", "", ""}, "");
     }
@@ -73,6 +79,7 @@ public class Question {
     }
 
     public void setOptions(String[] options) {
+        if (options == null) return; // ✅ an toàn hơn
         if (options.length > 0) setOption1(options[0]);
         if (options.length > 1) setOption2(options[1]);
         if (options.length > 2) setOption3(options[2]);
