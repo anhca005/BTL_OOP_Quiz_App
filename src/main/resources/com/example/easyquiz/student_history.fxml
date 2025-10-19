@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.easyquiz.controller.StudentHistoryController"
+      alignment="TOP_CENTER" spacing="15"
+      style="-fx-padding: 20;">
+
+    <Label text="📜 Lịch sử làm bài" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <TableView fx:id="resultTable" prefWidth="500" prefHeight="300">
+        <columns>
+            <TableColumn fx:id="quizColumn" text="Tên quiz" prefWidth="200"/>
+            <TableColumn fx:id="scoreColumn" text="Điểm" prefWidth="100"/>
+            <TableColumn fx:id="timeColumn" text="Thời gian nộp" prefWidth="200"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="⬅ Quay lại" onAction="#handleBack"/>
+    </HBox>
+
+</VBox>

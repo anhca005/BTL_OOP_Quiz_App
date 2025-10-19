@@ -1,16 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.easyquiz.controller.TeacherHomeController"
-      alignment="CENTER" spacing="20">
+      alignment="TOP_CENTER" spacing="15"
+      style="-fx-padding: 20;">
 
-    <Label fx:id="welcomeLabel" text="Xin chào Giáo viên"/>
-    <Button text="Quản lý câu hỏi" onAction="#handleManageQuestions"/>
-    <Button text="Đăng xuất" onAction="#handleLogout"/>
+    <!-- Thông tin giáo viên -->
+    <Label fx:id="welcomeLabel"
+           text="Xin chào, Giáo viên"
+           style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+    <Label fx:id="teacherIdLabel"
+           text="ID: ... "
+           style="-fx-font-size: 14px; -fx-text-fill: gray;"/>
+
+    <!-- Danh sách bộ câu hỏi -->
+    <Label text="Danh sách bộ câu hỏi:"
+           style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+    <TableView fx:id="quizTable" prefWidth="500" prefHeight="250">
+        <columns>
+            <TableColumn fx:id="colQuizId" text="Quiz ID" prefWidth="120"/>
+            <TableColumn fx:id="colTitle" text="Tiêu đề" prefWidth="200"/>
+            <TableColumn fx:id="colDescription" text="Mô tả" prefWidth="180"/>
+        </columns>
+    </TableView>
+
+    <!-- Các nút thao tác -->
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="➕ Thêm quiz mới" onAction="#handleAddQuiz" style="-fx-min-width: 150px;"/>
+        <Button text="📘 Quản lý câu hỏi" onAction="#handleManageQuestions" style="-fx-min-width: 150px;"/>
+        <Button text="🚪 Đăng xuất" onAction="#handleLogout" style="-fx-min-width: 150px;"/>
+    </HBox>
 
 </VBox>

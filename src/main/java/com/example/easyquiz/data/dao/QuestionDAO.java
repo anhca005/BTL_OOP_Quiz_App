@@ -8,44 +8,73 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionDAO {
-    public static void saveQuestions(int setId, List<Question> questions) {
-        String sql = "INSERT INTO questions (set_id, question_text, option_a, option_b, option_c, option_d, correct_answer) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+    /** ✅ Thêm 1 câu hỏi mới vào quiz */
+    public static int insertQuestion(int quizId, Question q) {
+        String sql = "INSERT INTO questions (quiz_id, question_text, correct_answer) VALUES (?, ?, ?)";
         try (Connection c = DatabaseHelper.getConnection();
-             PreparedStatement p = c.prepareStatement(sql)) {
-            for (Question q : questions) {
-                p.setInt(1, setId);
-                p.setString(2, q.getQuestionText());
-                String[] opts = q.getOptions();
-                p.setString(3, opts.length>0?opts[0]:null);
-                p.setString(4, opts.length>1?opts[1]:null);
-                p.setString(5, opts.length>2?opts[2]:null);
-                p.setString(6, opts.length>3?opts[3]:null);
-                p.setString(7, q.getCorrectAnswer());
-                p.addBatch();
+             PreparedStatement p = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            p.setInt(1, quizId);
+            p.setString(2, q.getQuestionText());
+            p.setString(3, q.getCorrectAnswer());
+            p.executeUpdate();
+            try (ResultSet rs = p.getGeneratedKeys()) {
+                if (rs.next()) return rs.getInt(1);
             }
-            p.executeBatch();
-        } catch (SQLException ex) { ex.printStackTrace(); }
+        } catch (SQLException e) {
+            System.err.println("[QuestionDAO] insertQuestion error: " + e.getMessage());
+        }
+        return -1;
     }
 
-    public static List<Question> getBySet(int setId) {
-        List<Question> out = new ArrayList<>();
-        String sql = "SELECT * FROM questions WHERE set_id = ?";
+    /** ✅ Lấy danh sách câu hỏi thuộc 1 quiz */
+    public static List<Question> getQuestionsByQuiz(int quizId) {
+        List<Question> list = new ArrayList<>();
+        String sql = "SELECT * FROM questions WHERE quiz_id = ?";
         try (Connection c = DatabaseHelper.getConnection();
              PreparedStatement p = c.prepareStatement(sql)) {
-            p.setInt(1, setId);
+            p.setInt(1, quizId);
             try (ResultSet rs = p.executeQuery()) {
                 while (rs.next()) {
-                    String[] opts = {
-                            rs.getString("option_a"),
-                            rs.getString("option_b"),
-                            rs.getString("option_c"),
-                            rs.getString("option_d")
-                    };
-                    Question q = new Question(rs.getInt("question_id"), rs.getString("question_text"), opts, rs.getString("correct_answer"));
-                    out.add(q);
+                    list.add(new Question(
+                            rs.getInt("question_id"),
+                            rs.getString("question_text"),
+                            null,
+                            rs.getString("correct_answer")
+                    ));
                 }
             }
-        } catch (SQLException ex) { ex.printStackTrace(); }
-        return out;
+        } catch (SQLException e) {
+            System.err.println("[QuestionDAO] getQuestionsByQuiz error: " + e.getMessage());
+        }
+        return list;
+    }
+
+    /** ✅ Cập nhật câu hỏi */
+    public static boolean updateQuestion(Question q) {
+        String sql = "UPDATE questions SET question_text = ?, correct_answer = ? WHERE question_id = ?";
+        try (Connection c = DatabaseHelper.getConnection();
+             PreparedStatement p = c.prepareStatement(sql)) {
+            p.setString(1, q.getQuestionText());
+            p.setString(2, q.getCorrectAnswer());
+            p.setInt(3, q.getId());
+            return p.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("[QuestionDAO] updateQuestion error: " + e.getMessage());
+        }
+        return false;
+    }
+
+    /** ✅ Xóa câu hỏi (và options liên quan) */
+    public static boolean deleteQuestion(int questionId) {
+        String sql = "DELETE FROM questions WHERE question_id = ?";
+        try (Connection c = DatabaseHelper.getConnection();
+             PreparedStatement p = c.prepareStatement(sql)) {
+            p.setInt(1, questionId);
+            return p.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("[QuestionDAO] deleteQuestion error: " + e.getMessage());
+        }
+        return false;
     }
 }

@@ -22,5 +22,7 @@ module com.example.easyquiz {
     exports com.example.easyquiz.model;           // thêm
     opens com.example.easyquiz.model to javafx.fxml, com.fasterxml.jackson.databind;
     exports com.example.easyquiz.data.dao;
-    opens com.example.easyquiz.data.dao to javafx.fxml; // thêm
+    opens com.example.easyquiz.data.dao to javafx.fxml;
+    exports com.example.easyquiz.utils;
+    opens com.example.easyquiz.utils to javafx.fxml; // thêm
 }

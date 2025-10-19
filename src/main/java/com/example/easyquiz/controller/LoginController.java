@@ -2,6 +2,7 @@ package com.example.easyquiz.controller;
 
 import com.example.easyquiz.data.dao.UserDAO;
 import com.example.easyquiz.model.User;
+import com.example.easyquiz.utils.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -45,6 +46,7 @@ public class LoginController {
         User user = UserDAO.findByEmailAndPassword(email, password);
         if (user != null) {
             showAlert("Thành công", "Xin chào " + user.getUser_name() + " (" + user.getRole() + ")");
+            Session.setUser(user);
 
             try {
                 Stage stage = (Stage) loginBtn.getScene().getWindow();

@@ -7,10 +7,14 @@
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.easyquiz.controller.StudentHomeController"
-      alignment="CENTER" spacing="20">
+      alignment="CENTER" spacing="20" style="-fx-padding: 30">
 
-    <Label fx:id="welcomeLabel" text="Xin chào Học sinh"/>
-    <Button text="Làm bài kiểm tra"/>
-    <Button text="Đăng xuất" onAction="#handleLogout"/>
+    <Label fx:id="welcomeLabel"
+           text="Xin chào Học sinh"
+           style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+    <Button text="🎯 Làm bài kiểm tra" onAction="#handleDoQuiz" prefWidth="200"/>
+    <Button text="📜 Xem lịch sử làm bài" onAction="#handleViewHistory" prefWidth="200"/>
+    <Button text="🚪 Đăng xuất" onAction="#handleLogout" prefWidth="200"/>
 
 </VBox>
