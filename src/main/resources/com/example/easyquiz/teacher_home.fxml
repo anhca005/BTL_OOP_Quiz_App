@@ -35,7 +35,10 @@
                     <Label text="Library" styleClass="nav-item"/>
                     <Label text="Class" styleClass="nav-item"/>
                 </HBox>
+
+                <!-- Nút ▼ và Logout -->
                 <Button text="▼" styleClass="user-btn"/>
+                <Button text="Logout" onAction="#handleLogout" styleClass="logout-btn"/>
             </children>
             <padding>
                 <Insets left="30" right="30"/>

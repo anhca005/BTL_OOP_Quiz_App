@@ -51,3 +51,20 @@
 .create-btn:hover {
     -fx-background-color: #e3f2fd;
 }
+
+.logout-btn {
+    -fx-background-color: rgba(255, 255, 255, 0.3);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;
+    -fx-padding: 5 15 5 15;
+    -fx-cursor: hand;
+    -fx-border-color: white;
+    -fx-border-radius: 20;
+    -fx-border-width: 1;
+}
+
+.logout-btn:hover {
+    -fx-background-color: white;
+    -fx-text-fill: #2196F3;
+}
