@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.easyquiz.controller.TeacherLibraryController"
+            prefWidth="800" prefHeight="600"
+            stylesheets="@teacher_library.css">
+
+    <children>
+        <VBox spacing="15" alignment="TOP_CENTER">
+            <!-- Padding phải dùng thẻ Insets -->
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+
+            <!-- Tiêu đề -->
+            <Label fx:id="teacherNameLabel" styleClass="title-label"/>
+
+            <!-- Danh sách quiz -->
+            <ListView fx:id="quizListView" prefHeight="480" prefWidth="760"/>
+
+            <!-- Hàng nút điều hướng -->
+            <HBox spacing="10" alignment="CENTER_RIGHT">
+                <Button text="Back" onAction="#handleBack" />
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>

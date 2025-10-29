@@ -1,0 +1,11 @@
+.title-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2196F3;
+}
+
+.list-view {
+    -fx-background-color: white;
+    -fx-border-color: #90caf9;
+    -fx-border-radius: 6;
+}
