@@ -16,6 +16,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 
 import java.io.IOException;
 import java.util.List;
@@ -32,8 +34,11 @@ public class TeacherQuestionController {
     @FXML private TextField option2Field;
     @FXML private TextField option3Field;
     @FXML private TextField option4Field;
-    @FXML private TextField correctField;
-    @FXML private TextField setNameField;
+    @FXML private CheckBox correctOptionA;
+    @FXML private CheckBox correctOptionB;
+    @FXML private CheckBox correctOptionC;
+    @FXML private CheckBox correctOptionD;
+    @FXML private TextField setNameField; // Đã thêm lại setNameField
 
     @FXML private ComboBox<Quiz> quizComboBox; // danh sách quiz (bộ câu hỏi)
 
@@ -53,6 +58,9 @@ public class TeacherQuestionController {
         questionColumn.setCellValueFactory(cellData -> cellData.getValue().questionTextProperty());
         correctColumn.setCellValueFactory(cellData -> cellData.getValue().correctAnswerProperty());
         questionTable.setItems(questionList);
+
+        // Thiết lập listener cho các CheckBox để đảm bảo chỉ một được chọn
+        setupCorrectOptionCheckBoxes();
 
         // Khi chọn quiz => load câu hỏi
         if (quizComboBox != null) {
@@ -75,19 +83,47 @@ public class TeacherQuestionController {
                     option3Field.setText(opts[2]);
                     option4Field.setText(opts[3]);
                 }
-                correctField.setText(newSelection.getCorrectAnswer());
+                // Đặt CheckBox đáp án đúng
+                clearCorrectOptionCheckBoxes(); // Xóa lựa chọn cũ trước
+                String correctAns = newSelection.getCorrectAnswer();
+                if (correctAns != null) {
+                    switch (correctAns.toLowerCase()) {
+                        case "a": correctOptionA.setSelected(true); break;
+                        case "b": correctOptionB.setSelected(true); break;
+                        case "c": correctOptionC.setSelected(true); break;
+                        case "d": correctOptionD.setSelected(true); break;
+                    }
+                }
             }
         });
     }
 
-    /** 🔹 Load tất cả quiz của giáo viên */
+    // Phương thức thiết lập các CheckBox đáp án đúng
+    private void setupCorrectOptionCheckBoxes() {
+        correctOptionA.setOnAction(event -> handleCorrectOptionCheckBox(correctOptionA));
+        correctOptionB.setOnAction(event -> handleCorrectOptionCheckBox(correctOptionB));
+        correctOptionC.setOnAction(event -> handleCorrectOptionCheckBox(correctOptionC));
+        correctOptionD.setOnAction(event -> handleCorrectOptionCheckBox(correctOptionD));
+    }
+
+    // Phương thức xử lý sự kiện khi một CheckBox đáp án đúng được chọn
+    private void handleCorrectOptionCheckBox(CheckBox selectedCheckBox) {
+        if (selectedCheckBox.isSelected()) {
+            if (selectedCheckBox != correctOptionA) correctOptionA.setSelected(false);
+            if (selectedCheckBox != correctOptionB) correctOptionB.setSelected(false);
+            if (selectedCheckBox != correctOptionC) correctOptionC.setSelected(false);
+            if (selectedCheckBox != correctOptionD) correctOptionD.setSelected(false);
+        }
+    }
+
+    /** Load tất cả quiz của giáo viên */
     private void loadQuizList() {
         quizList.setAll(QuizDAO.getAllByTeacher(currentUser.getUser_id()));
         quizComboBox.setItems(quizList);
     }
 
-    /** 🔹 Load tất cả câu hỏi trong quiz */
-    private void loadQuestionsFromDB(int quizId) {
+    /** Load tất cả câu hỏi trong quiz */
+    private void loadQuestionsFromDB(long quizId) {
         List<Question> loaded = QuestionDAO.getQuestionsByQuiz(quizId);
         for (Question q : loaded) {
             List<String> options = OptionDAO.getOptionsByQuestion(q.getId());
@@ -96,7 +132,7 @@ public class TeacherQuestionController {
         questionList.setAll(loaded);
     }
 
-    /** 🔹 Thêm câu hỏi mới */
+    /** Thêm câu hỏi mới */
     @FXML
     private void handleAddQuestion(ActionEvent event) {
         Quiz selectedQuiz = quizComboBox.getSelectionModel().getSelectedItem();
@@ -112,10 +148,10 @@ public class TeacherQuestionController {
                 option3Field.getText().trim(),
                 option4Field.getText().trim()
         };
-        String correct = correctField.getText().trim();
+        String correct = getSelectedCorrectOption();
 
         if (text.isEmpty() || correct.isEmpty()) {
-            showAlert(Alert.AlertType.WARNING, "Vui lòng nhập đầy đủ nội dung câu hỏi và đáp án đúng!");
+            showAlert(Alert.AlertType.WARNING, "Vui lòng nhập đầy đủ nội dung câu hỏi và chọn đáp án đúng!");
             return;
         }
 
@@ -129,7 +165,16 @@ public class TeacherQuestionController {
         showAlert(Alert.AlertType.INFORMATION, "Đã thêm câu hỏi mới!");
     }
 
-    /** 🔹 Sửa câu hỏi */
+    /** Lấy đáp án đúng từ CheckBox đã chọn */
+    private String getSelectedCorrectOption() {
+        if (correctOptionA.isSelected()) return "a";
+        if (correctOptionB.isSelected()) return "b";
+        if (correctOptionC.isSelected()) return "c";
+        if (correctOptionD.isSelected()) return "d";
+        return ""; // Không có đáp án nào được chọn
+    }
+
+    /** Sửa câu hỏi */
     @FXML
     private void handleEditQuestion(ActionEvent event) {
         Question selected = questionTable.getSelectionModel().getSelectedItem();
@@ -145,7 +190,7 @@ public class TeacherQuestionController {
                 option3Field.getText().trim(),
                 option4Field.getText().trim()
         };
-        String correct = correctField.getText().trim();
+        String correct = getSelectedCorrectOption(); // Lấy từ CheckBox
 
         if (text.isEmpty() || correct.isEmpty()) {
             showAlert(Alert.AlertType.WARNING, "Câu hỏi và đáp án đúng không được để trống!");
@@ -163,7 +208,7 @@ public class TeacherQuestionController {
         showAlert(Alert.AlertType.INFORMATION, "Đã cập nhật câu hỏi thành công!");
     }
 
-    /** 🔹 Xóa câu hỏi */
+    /** Xóa câu hỏi */
     @FXML
     private void handleDeleteQuestion(ActionEvent event) {
         Question selected = questionTable.getSelectionModel().getSelectedItem();
@@ -184,7 +229,7 @@ public class TeacherQuestionController {
         }
     }
 
-    /** 🔹 Tạo bộ câu hỏi mới */
+    /** Tạo bộ câu hỏi mới */
     @FXML
     private void handleSaveQuestionSet(ActionEvent event) {
         String title = setNameField.getText().trim();
@@ -193,20 +238,24 @@ public class TeacherQuestionController {
             return;
         }
 
-        int quizId = QuizDAO.insertQuiz(currentUser.getUser_id(), title, "Tạo trong app");
-        loadQuizList();
-
-        for (Quiz q : quizList) {
-            if (q.getQuiz_id() == quizId) {
-                quizComboBox.getSelectionModel().select(q);
-                break;
+        long newQuizId = QuizDAO.generateRandomQuizId(); // Tạo ID ngẫu nhiên
+        long quizId = QuizDAO.insertQuiz(newQuizId, currentUser.getUser_id(), title, "Tạo trong app");
+        
+        if (quizId != -1L) {
+            loadQuizList();
+            for (Quiz q : quizList) {
+                if (q.getQuiz_id() == quizId) {
+                    quizComboBox.getSelectionModel().select(q);
+                    break;
+                }
             }
+            showAlert(Alert.AlertType.INFORMATION, "Đã tạo bộ câu hỏi mới với ID: " + quizId);
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Không thể tạo bộ câu hỏi mới!");
         }
-
-        showAlert(Alert.AlertType.INFORMATION, "Đã tạo bộ câu hỏi mới!");
     }
 
-    /** 🔹 Quay lại màn hình chính của giáo viên */
+    /** Quay lại màn hình chính của giáo viên */
     @FXML
     private void handleBack(ActionEvent event) {
         try {
@@ -226,14 +275,37 @@ public class TeacherQuestionController {
         }
     }
 
-    /** 🔹 Tiện ích */
+    @FXML
+    private void handleCopyQuizId() {
+        Quiz selectedQuiz = quizComboBox.getSelectionModel().getSelectedItem();
+        if (selectedQuiz != null) {
+            String quizId = String.valueOf(selectedQuiz.getQuiz_id());
+            final Clipboard clipboard = Clipboard.getSystemClipboard();
+            final ClipboardContent content = new ClipboardContent();
+            content.putString(quizId);
+            clipboard.setContent(content);
+            showAlert(Alert.AlertType.INFORMATION, "Đã sao chép Quiz ID: " + quizId);
+        } else {
+            showAlert(Alert.AlertType.WARNING, "Vui lòng chọn một Quiz để sao chép ID.");
+        }
+    }
+
+    /** Tiện ích */
     private void clearInputFields() {
         questionField.clear();
         option1Field.clear();
         option2Field.clear();
         option3Field.clear();
         option4Field.clear();
-        correctField.clear();
+        clearCorrectOptionCheckBoxes(); // Bỏ chọn tất cả CheckBox
+    }
+
+    // Phương thức để bỏ chọn tất cả các CheckBox đáp án đúng
+    private void clearCorrectOptionCheckBoxes() {
+        correctOptionA.setSelected(false);
+        correctOptionB.setSelected(false);
+        correctOptionC.setSelected(false);
+        correctOptionD.setSelected(false);
     }
 
     private void showAlert(Alert.AlertType type, String message) {

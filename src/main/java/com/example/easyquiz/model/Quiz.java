@@ -8,15 +8,15 @@ import javafx.beans.property.*;
  */
 public class Quiz {
 
-    private final IntegerProperty quiz_id;
+    private final LongProperty quiz_id;
     private final IntegerProperty user_id;
     private final StringProperty title;
     private final StringProperty description;
     private final StringProperty created_at;
 
     // --- Constructor ---
-    public Quiz(int quiz_id, int user_id, String title, String description, String created_at) {
-        this.quiz_id = new SimpleIntegerProperty(quiz_id);
+    public Quiz(long quiz_id, int user_id, String title, String description, String created_at) {
+        this.quiz_id = new SimpleLongProperty(quiz_id);
         this.user_id = new SimpleIntegerProperty(user_id);
         this.title = new SimpleStringProperty(title);
         this.description = new SimpleStringProperty(description);
@@ -25,13 +25,13 @@ public class Quiz {
 
     // Constructor mặc định
     public Quiz() {
-        this(0, 0, "", "", "");
+        this(0L, 0, "", "", "");
     }
 
     // --- Getter / Setter / Property ---
-    public int getQuiz_id() { return quiz_id.get(); }
-    public void setQuiz_id(int value) { quiz_id.set(value); }
-    public IntegerProperty quiz_idProperty() { return quiz_id; }
+    public long getQuiz_id() { return quiz_id.get(); }
+    public void setQuiz_id(long value) { quiz_id.set(value); }
+    public LongProperty quiz_idProperty() { return quiz_id; }
 
     public int getUser_id() { return user_id.get(); }
     public void setUser_id(int value) { user_id.set(value); }
@@ -50,7 +50,7 @@ public class Quiz {
     public StringProperty created_atProperty() { return created_at; }
 
     /**
-     * 🔹 Mã hiển thị dạng userID_quizNumber (VD: 4_2)
+     * Mã hiển thị dạng userID_quizNumber (VD: 4_2)
      */
     public String getDisplayId() {
         return getUser_id() + "_" + getQuiz_id();

@@ -21,17 +21,18 @@ public class StudentQuizController {
 
     @FXML private TextField quizIdField;
     @FXML private Label questionLabel;
-    @FXML private Label quizInfoLabel; // 🔹 thêm label để hiển thị quiz ID
+    @FXML private Label quizInfoLabel; // Thêm label để hiển thị quiz ID
     @FXML private VBox optionsBox;
     @FXML private Button nextButton;
-    @FXML private Button startButton; // 🔹 để disable sau khi bắt đầu
+    @FXML private Button startButton; // Để disable sau khi bắt đầu
 
     private User currentUser;
     private List<Question> questions = new ArrayList<>();
     private int currentIndex = 0;
     private double score = 0;
     private ToggleGroup optionGroup;
-    private int currentQuizId;
+    private long currentQuizId;
+    private Button selectedOptionButton; // Thêm biến để theo dõi nút được chọn
 
     public void setCurrentUser(User user) {
         this.currentUser = user;
@@ -40,7 +41,7 @@ public class StudentQuizController {
     @FXML
     private void handleStartQuiz() {
         try {
-            currentQuizId = Integer.parseInt(quizIdField.getText().trim());
+            currentQuizId = Long.parseLong(quizIdField.getText().trim());
             questions = QuestionDAO.getQuestionsByQuiz(currentQuizId);
 
             for (Question q : questions) {
@@ -52,11 +53,11 @@ public class StudentQuizController {
                 return;
             }
 
-            // 🔹 Khóa ô nhập quiz ID và nút bắt đầu
+            // Khóa ô nhập quiz ID và nút bắt đầu
             quizIdField.setDisable(true);
             if (startButton != null) startButton.setDisable(true);
 
-            // 🔹 Hiển thị ID quiz đang làm
+            // Hiển thị ID quiz đang làm
             if (quizInfoLabel != null)
                 quizInfoLabel.setText("Quiz ID: " + currentQuizId);
 
@@ -70,39 +71,59 @@ public class StudentQuizController {
         }
     }
 
+    private void handleOptionSelection(Button selectedButton) {
+        // Bỏ chọn nút cũ (nếu có)
+        if (selectedOptionButton != null) {
+            selectedOptionButton.getStyleClass().remove("selected-option");
+        }
+        // Chọn nút mới
+        selectedOptionButton = selectedButton;
+        selectedOptionButton.getStyleClass().add("selected-option");
+    }
+
     private void showQuestion() {
         Question q = questions.get(currentIndex);
         questionLabel.setText("Câu " + (currentIndex + 1) + ": " + q.getQuestionText());
         optionsBox.getChildren().clear();
 
-        optionGroup = new ToggleGroup();
-        for (String opt : q.getOptions()) {
-            RadioButton rb = new RadioButton(opt);
-            rb.setToggleGroup(optionGroup);
-            optionsBox.getChildren().add(rb);
+        // Thay thế RadioButton bằng Button
+        selectedOptionButton = null; // Reset lựa chọn khi hiển thị câu hỏi mới
+        String[] options = q.getOptions();
+        char optionChar = 'a';
+        for (int i = 0; i < options.length; i++) {
+            Button optionButton = new Button(options[i]);
+            optionButton.setPrefWidth(Double.MAX_VALUE); // Nút chiếm toàn bộ chiều rộng
+            optionButton.getStyleClass().add("option-button"); // Thêm style class để dễ dàng tùy chỉnh CSS
+            optionButton.setUserData(String.valueOf(optionChar)); // Lưu trữ chữ cái lựa chọn vào UserData
+            optionButton.setOnAction(event -> handleOptionSelection(optionButton));
+            optionsBox.getChildren().add(optionButton);
+            optionChar++;
         }
     }
 
     @FXML
     private void handleNext() {
-        if (optionGroup == null || optionGroup.getSelectedToggle() == null) {
+        if (selectedOptionButton == null) {
             showAlert(Alert.AlertType.WARNING, "Vui lòng chọn 1 đáp án!");
             return;
         }
 
-        RadioButton selected = (RadioButton) optionGroup.getSelectedToggle();
-        String answer = selected.getText();
+        String selectedOptionChar = (String) selectedOptionButton.getUserData();
         Question q = questions.get(currentIndex);
 
-        if (answer.equalsIgnoreCase(q.getCorrectAnswer())) {
+        // Lấy đáp án đúng từ Question model (đã được chuẩn hóa thành chữ thường)
+        String correctAnswer = q.getCorrectAnswer();
+
+        // So sánh đáp án đã chọn với đáp án đúng (không phân biệt hoa thường)
+        if (selectedOptionChar.equalsIgnoreCase(correctAnswer)) {
             score += 10.0 / questions.size();
         }
 
         currentIndex++;
 
-        // 🔹 Nếu hết câu hỏi → kết thúc quiz
+        // Nếu hết câu hỏi → kết thúc quiz
         if (currentIndex >= questions.size()) {
-            nextButton.setDisable(true); // ⛔ Không cho ấn tiếp theo nữa
+            nextButton.setDisable(true); // Không cho ấn tiếp theo nữa
             finishQuiz();
         } else {
             showQuestion();
@@ -111,14 +132,14 @@ public class StudentQuizController {
 
     private void finishQuiz() {
         if (currentUser == null) {
-            System.err.println("⚠️ currentUser chưa được gán!");
+            System.err.println("currentUser chưa được gán!");
             return;
         }
 
         ResultDAO.insertResult(currentUser.getUser_id(), currentQuizId, score);
         showAlert(Alert.AlertType.INFORMATION,
-                String.format("🎉 Bạn đã hoàn thành quiz!\nĐiểm số: %.2f", score));
-        System.out.println("✅ Kết quả đã được lưu vào CSDL!");
+                String.format("Bạn đã hoàn thành quiz!\nĐiểm số: %.2f", score));
+        System.out.println("Kết quả đã được lưu vào CSDL!");
     }
 
     @FXML

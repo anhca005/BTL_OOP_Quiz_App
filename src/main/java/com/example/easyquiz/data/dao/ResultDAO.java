@@ -12,14 +12,14 @@ public class ResultDAO {
     /**
      * Thêm kết quả làm bài mới vào bảng results.
      */
-    public static void insertResult(int userId, int quizId, double score) {
+    public static void insertResult(int userId, long quizId, double score) {
         String sql = "INSERT INTO results (user_id, quiz_id, score, submitted_at) VALUES (?, ?, ?, datetime('now'))";
 
         try (Connection conn = DatabaseHelper.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, userId);
-            stmt.setInt(2, quizId);
+            stmt.setLong(2, quizId);
             stmt.setDouble(3, score);
             stmt.executeUpdate();
 
