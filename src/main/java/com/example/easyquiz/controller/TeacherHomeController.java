@@ -82,4 +82,23 @@ public class TeacherHomeController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void handleClassManagement() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/easyquiz/teacher_class_management.fxml"));
+            Parent root = loader.load();
+
+            // Lấy controller của trang Class Management và truyền thông tin user
+            TeacherClassManagementController controller = loader.getController();
+            controller.setCurrentUser(currentUser);
+
+            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Class Management");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

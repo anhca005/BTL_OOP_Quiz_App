@@ -27,17 +27,13 @@
         </Rectangle>
 
         <!-- Thanh menu trên cùng -->
-        <HBox spacing="20" alignment="CENTER_RIGHT" prefHeight="60" layoutY="0" styleClass="navbar">
+        <HBox spacing="20" alignment="CENTER_LEFT" prefHeight="60" layoutY="0" styleClass="navbar">
             <children>
-                <Label text="QuizApp" styleClass="logo" HBox.hgrow="ALWAYS" />
-                <HBox spacing="20" alignment="CENTER_RIGHT">
-                    <Label text="Home" styleClass="nav-item"/>
-                    <Label text="Library" styleClass="nav-item" onMouseClicked="#handleLibrary"/>
-                    <Label text="Class" styleClass="nav-item"/>
-                </HBox>
-
-                <!-- Nút ▼ và Logout -->
-                <Button text="▼" styleClass="user-btn"/>
+                <Label text="QuizApp" styleClass="logo" />
+                <Pane HBox.hgrow="ALWAYS" />
+                <Label text="Home" styleClass="nav-item"/>
+                <Label text="Library" styleClass="nav-item" onMouseClicked="#handleLibrary"/>
+                <Label text="Class" styleClass="nav-item" onMouseClicked="#handleClassManagement"/>
                 <Button text="Logout" onAction="#handleLogout" styleClass="logout-btn"/>
             </children>
             <padding>

@@ -16,8 +16,9 @@
     <TextField fx:id="emailField" promptText="Email"/>
     <PasswordField fx:id="passwordField" promptText="Mật khẩu"/>
     <PasswordField fx:id="confirmPasswordField" promptText="Xác nhận mật khẩu"/>
-
     <ChoiceBox fx:id="roleChoiceBox" prefWidth="200"/>
+    <TextField fx:id="studentCodeField" promptText="Mã sinh viên (nếu là học sinh)"/>
+    <TextField fx:id="classField" promptText="Tên lớp học (nếu là học sinh)"/>
 
     <HBox spacing="10" alignment="CENTER">
         <Button fx:id="registerBtn" text="Đăng ký"/>

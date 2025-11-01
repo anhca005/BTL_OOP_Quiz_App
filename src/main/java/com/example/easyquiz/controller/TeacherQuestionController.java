@@ -39,6 +39,7 @@ public class TeacherQuestionController {
     @FXML private CheckBox correctOptionC;
     @FXML private CheckBox correctOptionD;
     @FXML private TextField setNameField; // Đã thêm lại setNameField
+    @FXML private Spinner<Integer> durationSpinner;
 
     @FXML private ComboBox<Quiz> quizComboBox; // danh sách quiz (bộ câu hỏi)
 
@@ -233,13 +234,15 @@ public class TeacherQuestionController {
     @FXML
     private void handleSaveQuestionSet(ActionEvent event) {
         String title = setNameField.getText().trim();
+        int duration = durationSpinner.getValue();
+
         if (title.isEmpty()) {
             showAlert(Alert.AlertType.WARNING, "Vui lòng nhập tên bộ câu hỏi!");
             return;
         }
 
         long newQuizId = QuizDAO.generateRandomQuizId(); // Tạo ID ngẫu nhiên
-        long quizId = QuizDAO.insertQuiz(newQuizId, currentUser.getUser_id(), title, "Tạo trong app");
+        long quizId = QuizDAO.insertQuiz(newQuizId, currentUser.getUser_id(), title, "Tạo trong app", duration);
         
         if (quizId != -1L) {
             loadQuizList();

@@ -1,7 +1,10 @@
 package com.example.easyquiz.controller;
 
+import com.example.easyquiz.data.dao.ClassDAO;
 import com.example.easyquiz.data.dao.UserDAO;
+import com.example.easyquiz.model.Classroom;
 import com.example.easyquiz.model.User;
+import com.example.easyquiz.utils.AlertUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,6 +30,12 @@ public class RegisterController {
     private PasswordField confirmPasswordField;
 
     @FXML
+    private TextField studentCodeField;
+
+    @FXML
+    private TextField classField;
+
+    @FXML
     private ChoiceBox<String> roleChoiceBox;
 
     @FXML
@@ -41,6 +50,12 @@ public class RegisterController {
         roleChoiceBox.getItems().addAll("student", "teacher");
         roleChoiceBox.setValue("student");
 
+        // Show/hide fields based on role
+        studentCodeField.visibleProperty().bind(roleChoiceBox.valueProperty().isEqualTo("student"));
+        studentCodeField.managedProperty().bind(studentCodeField.visibleProperty());
+        classField.visibleProperty().bind(roleChoiceBox.valueProperty().isEqualTo("student"));
+        classField.managedProperty().bind(classField.visibleProperty());
+
         registerBtn.setOnAction(this::handleRegister);
         backBtn.setOnAction(this::handleBackToLogin);
     }
@@ -51,37 +66,63 @@ public class RegisterController {
         String password = passwordField.getText().trim();
         String confirm = confirmPasswordField.getText().trim();
         String role = roleChoiceBox.getValue();
+        String studentCode = studentCodeField.getText().trim();
+        String className = classField.getText().trim();
 
         // --- Kiểm tra hợp lệ ---
         if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirm.isEmpty()) {
-            showAlert(Alert.AlertType.WARNING, "Thiếu thông tin", "Vui lòng nhập đầy đủ tất cả các trường.");
+            AlertUtils.showAlert(Alert.AlertType.WARNING, "Thiếu thông tin", "Vui lòng nhập đầy đủ tất cả các trường.");
+            return;
+        }
+
+        if ("student".equals(role) && (className.isEmpty() || studentCode.isEmpty())) {
+            AlertUtils.showAlert(Alert.AlertType.WARNING, "Thiếu thông tin", "Học sinh phải nhập đầy đủ Mã sinh viên và Tên lớp học.");
             return;
         }
 
         if (!password.equals(confirm)) {
-            showAlert(Alert.AlertType.WARNING, "Mật khẩu không khớp", "Vui lòng nhập lại mật khẩu.");
+            AlertUtils.showAlert(Alert.AlertType.WARNING, "Mật khẩu không khớp", "Vui lòng nhập lại mật khẩu.");
             return;
         }
 
         if (UserDAO.isEmailTaken(email)) {
-            showAlert(Alert.AlertType.ERROR, "Email đã tồn tại", "Vui lòng chọn email khác.");
+            AlertUtils.showAlert(Alert.AlertType.ERROR, "Email đã tồn tại", "Vui lòng chọn email khác.");
             return;
+        }
+
+        Integer classId = null;
+        if ("student".equals(role)) {
+            if (UserDAO.isStudentCodeTaken(studentCode)) {
+                AlertUtils.showAlert(Alert.AlertType.ERROR, "Mã sinh viên đã tồn tại", "Vui lòng chọn mã sinh viên khác.");
+                return;
+            }
+
+            Classroom classroom = ClassDAO.findClassByName(className);
+            if (classroom == null) {
+                AlertUtils.showAlert(Alert.AlertType.ERROR, "Lớp không tồn tại", "Lớp học \'" + className + "\' không tồn tại. Vui lòng kiểm tra lại.");
+                return;
+            }
+            classId = classroom.getClass_id();
         }
 
         // --- Thêm user vào database ---
         User user = new User();
         user.setUser_name(name);
         user.setEmail(email);
-        user.setPassword(password);
+        user.setPassword(password); // DAO will hash this
         user.setRole(role);
-        user.setAverage_score(role.equals("student") ? 0.0 : 0);
+        user.setAverage_score(0.0);
+        user.setClass_id(classId);
+        if ("student".equals(role)) {
+            user.setStudentCode(studentCode);
+        }
 
         int newId = UserDAO.addUser(user);
         if (newId > 0) {
-            showAlert(Alert.AlertType.INFORMATION, "Thành công", "Đăng ký tài khoản thành công! Quay lại đăng nhập.");
+            AlertUtils.showAlert(Alert.AlertType.INFORMATION, "Thành công", "Đăng ký tài khoản thành công! Quay lại đăng nhập.");
             handleBackToLogin(event);
         } else {
-            showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể tạo tài khoản. Vui lòng thử lại.");
+            AlertUtils.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể tạo tài khoản. Vui lòng thử lại.");
         }
     }
 
@@ -95,15 +136,8 @@ public class RegisterController {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể quay lại màn hình đăng nhập!");
+            AlertUtils.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể quay lại màn hình đăng nhập!");
         }
     }
 
-    private void showAlert(Alert.AlertType type, String title, String msg) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(msg);
-        alert.showAndWait();
-    }
 }

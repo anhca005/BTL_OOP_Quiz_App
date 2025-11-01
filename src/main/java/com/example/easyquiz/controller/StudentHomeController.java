@@ -16,12 +16,18 @@ public class StudentHomeController {
     @FXML
     private Label welcomeLabel;
 
+    @FXML
+    private Label studentCodeLabel;
+
     private User currentUser;
 
     public void setCurrentUser(User user) {
-        this.currentUser = Session.getUser();
-        if (user != null) {
-            System.out.println("✅ Đã gán currentUser: " + user.getUser_name());
+        this.currentUser = user;
+        if (currentUser != null) {
+            welcomeLabel.setText("Welcome, " + currentUser.getUser_name());
+            if (currentUser.getStudentCode() != null && !currentUser.getStudentCode().isEmpty()) {
+                studentCodeLabel.setText("(MSV: " + currentUser.getStudentCode() + ")");
+            }
         } else {
             System.err.println("⚠️ currentUser NULL trong setCurrentUser()");
         }

@@ -1,57 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.control.*?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ScrollPane?>
-
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 
-<ScrollPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.easyquiz.controller.StudentQuizController"
-            fitToWidth="true"
-            pannable="true"
-            vbarPolicy="AS_NEEDED"
-            hbarPolicy="NEVER">
-
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.easyquiz.controller.StudentQuizController" prefHeight="600.0" prefWidth="800.0">
     <stylesheets>
         <URL value="@student_quiz.css" />
     </stylesheets>
-
-    <VBox alignment="CENTER"
-          spacing="10"
-          style="-fx-padding: 20;"
-          prefWidth="500">
-
-        <Label text="Làm bài trắc nghiệm"
-               style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
-
-        <HBox spacing="10" alignment="CENTER">
-            <Label text="Nhập Quiz ID:"/>
-            <TextField fx:id="quizIdField" promptText="Ví dụ: 1" HBox.hgrow="ALWAYS"/>
-            <Button fx:id="startButton" text="Bắt đầu" onAction="#handleStartQuiz"/>
-        </HBox>
-
-        <!-- Hiển thị quiz ID sau khi bắt đầu -->
-        <Label fx:id="quizInfoLabel" text="" style="-fx-font-size: 14px; -fx-text-fill: gray;"/>
-
-        <Separator/>
-
-        <Label fx:id="questionLabel"
-               text="Câu hỏi sẽ hiển thị ở đây"
-               wrapText="true"
-               style="-fx-font-size: 14px;"
-               maxWidth="Infinity"/>
-
-        <VBox fx:id="optionsBox"
-              spacing="5"
-              prefWidth="Infinity"/>
-
-        <HBox spacing="10" alignment="CENTER">
-            <Button fx:id="nextButton" text="Tiếp theo" onAction="#handleNext" disable="true"/>
-            <Button text="Quay lại" onAction="#handleBack"/>
-        </HBox>
-    </VBox>
-</ScrollPane>
+    <top>
+        <VBox alignment="CENTER" spacing="10" style="-fx-padding: 15;">
+            <children>
+                <Label text="Làm bài trắc nghiệm" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+                <HBox spacing="10" alignment="CENTER">
+                    <Label text="Nhập Quiz ID:" />
+                    <TextField fx:id="quizIdField" promptText="Ví dụ: 12345678901" HBox.hgrow="ALWAYS" />
+                    <Button fx:id="startButton" onAction="#handleStartQuiz" text="Bắt đầu" />
+                    <Button onAction="#handleBack" text="Quay lại" />
+                </HBox>
+                <HBox alignment="CENTER_LEFT" prefWidth="200.0">
+                    <children>
+                        <Label fx:id="quizInfoLabel" style="-fx-font-size: 14px; -fx-text-fill: gray;" text="" />
+                        <Pane HBox.hgrow="ALWAYS" />
+                        <Label fx:id="timerLabel" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #d32f2f;" text="10:00" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </top>
+    <center>
+        <VBox fx:id="quizContentPane" alignment="TOP_LEFT" spacing="20" style="-fx-padding: 20;" visible="false">
+            <children>
+                <Label fx:id="questionLabel" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Câu hỏi sẽ hiển thị ở đây" wrapText="true" />
+                <VBox fx:id="optionsBox" spacing="10" prefWidth="Infinity" />
+            </children>
+        </VBox>
+    </center>
+    <bottom>
+        <VBox fx:id="navigationPane" alignment="CENTER" spacing="15" style="-fx-padding: 15; -fx-border-color: #cccccc; -fx-border-width: 1 0 0 0;" visible="false">
+            <children>
+                <HBox alignment="CENTER" spacing="10">
+                    <Button fx:id="prevButton" onAction="#handlePrev" text="&lt; Câu trước" />
+                    <Button fx:id="submitButton" onAction="#handleSubmitEarly" styleClass="delete-btn" text="Nộp bài sớm" />
+                    <Button fx:id="nextButton" onAction="#handleNext" text="Câu sau &gt;" />
+                </HBox>
+                <Separator />
+                <FlowPane fx:id="questionNavPane" alignment="CENTER" hgap="5" vgap="5" prefWrapLength="750.0" />
+                 <Button text="Quay lại" onAction="#handleBack"/>
+            </children>
+        </VBox>
+    </bottom>
+</BorderPane>

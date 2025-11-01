@@ -9,26 +9,32 @@ public class User implements Serializable {
     private String email;
     private String password;
     private String role;
+    private String studentCode;
     private double average_score;
+    private Integer class_id; // Use Integer for nullable foreign key
 
     public User() {}
 
-    public User(int user_id, String user_name, String email, String password, String role) {
+    public User(int user_id, String user_name, String email, String password, String role, String studentCode) {
         this.user_id = user_id;
         this.user_name = user_name;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.studentCode = studentCode;
         this.average_score = 0.0;
+        this.class_id = null;
     }
 
-    public User(int user_id, String user_name, String email, String password, String role, double average_score) {
+    public User(int user_id, String user_name, String email, String password, String role, String studentCode, double average_score, Integer class_id) {
         this.user_id = user_id;
         this.user_name = user_name;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.studentCode = studentCode;
         this.average_score = average_score;
+        this.class_id = class_id;
     }
 
     public int getUser_id() {
@@ -71,6 +77,14 @@ public class User implements Serializable {
         this.role = role;
     }
 
+    public String getStudentCode() {
+        return studentCode;
+    }
+
+    public void setStudentCode(String studentCode) {
+        this.studentCode = studentCode;
+    }
+
     public double getAverage_score() {
         return average_score;
     }
@@ -79,14 +93,24 @@ public class User implements Serializable {
         this.average_score = average_score;
     }
 
+    public Integer getClass_id() {
+        return class_id;
+    }
+
+    public void setClass_id(Integer class_id) {
+        this.class_id = class_id;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "user_id=" + user_id +
                 ", user_name='" + user_name + '\'' +
+                ", studentCode='" + studentCode + '\'' +
                 ", email='" + email + '\'' +
                 ", role='" + role + '\'' +
                 ", average_score=" + average_score +
+                ", class_id=" + class_id +
                 '}';
     }
 }

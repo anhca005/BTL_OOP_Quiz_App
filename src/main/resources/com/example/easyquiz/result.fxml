@@ -51,5 +51,6 @@
             <Font name="Open Sans Semibold" size="17.0" />
          </font>
       </Label>
+      <Button layoutX="298.0" layoutY="350.0" onAction="#handleBackToHome" text="Back to Home" />
    </children>
 </AnchorPane>

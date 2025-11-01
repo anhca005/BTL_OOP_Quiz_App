@@ -45,14 +45,15 @@ public class QuizDAO {
     }
 
     /** Thêm bộ câu hỏi mới (quiz) */
-    public static long insertQuiz(long quizId, int teacherId, String title, String description) {
-        String sql = "INSERT INTO quizzes (quiz_id, user_id, title, description) VALUES (?, ?, ?, ?)";
+    public static long insertQuiz(long quizId, int teacherId, String title, String description, int duration) {
+        String sql = "INSERT INTO quizzes (quiz_id, user_id, title, description, duration) VALUES (?, ?, ?, ?, ?)";
         try (Connection c = DatabaseHelper.getConnection();
              PreparedStatement p = c.prepareStatement(sql)) {
             p.setLong(1, quizId);
             p.setInt(2, teacherId);
             p.setString(3, title);
             p.setString(4, description);
+            p.setInt(5, duration);
             p.executeUpdate();
             return quizId;
         } catch (SQLException e) {
@@ -74,6 +75,7 @@ public class QuizDAO {
                             rs.getInt("user_id"),
                             rs.getString("title"),
                             rs.getString("description"),
+                            rs.getInt("duration"),
                             rs.getString("created_at")
                     ));
                 }
@@ -110,6 +112,30 @@ public class QuizDAO {
                             rs.getInt("user_id"),
                             rs.getString("title"),
                             rs.getString("description"),
+                            rs.getInt("duration"),
+                            rs.getString("created_at")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Quiz getQuizById(long quizId) {
+        String sql = "SELECT * FROM quizzes WHERE quiz_id = ?";
+        try (Connection c = DatabaseHelper.getConnection();
+             PreparedStatement p = c.prepareStatement(sql)) {
+            p.setLong(1, quizId);
+            try (ResultSet rs = p.executeQuery()) {
+                if (rs.next()) {
+                    return new Quiz(
+                            rs.getLong("quiz_id"),
+                            rs.getInt("user_id"),
+                            rs.getString("title"),
+                            rs.getString("description"),
+                            rs.getInt("duration"),
                             rs.getString("created_at")
                     );
                 }

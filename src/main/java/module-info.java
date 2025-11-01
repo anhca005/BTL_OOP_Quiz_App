@@ -7,6 +7,7 @@ module com.example.easyquiz {
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.annotation;
     requires com.google.gson;
+
     requires org.apache.poi.ooxml;
 
     opens com.example.easyquiz to javafx.fxml;
