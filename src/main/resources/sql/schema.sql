@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS users (
 --  QUIZZES TABLE
 -- ===========================
 CREATE TABLE IF NOT EXISTS quizzes (
-    quiz_id     INTEGER PRIMARY KEY AUTOINCREMENT,
+    quiz_id     INTEGER PRIMARY KEY,
     user_id     INTEGER NOT NULL, -- giáo viên tạo quiz
     title       TEXT NOT NULL,
     description TEXT,

@@ -13,14 +13,15 @@
     </padding>
 
     <!-- Tiêu đề -->
-    <Label text="📘 Quản lý Câu hỏi" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+    <Label text="Quản lý Câu hỏi" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
 
     <!-- Quản lý bộ câu hỏi -->
     <HBox spacing="10" alignment="CENTER_LEFT">
         <Label text="Bộ câu hỏi:"/>
         <ComboBox fx:id="quizComboBox" promptText="Chọn bộ câu hỏi..." prefWidth="200"/>
+        <Button text="Copy ID" onAction="#handleCopyQuizId"/>
         <TextField fx:id="setNameField" promptText="Tên bộ mới..." prefWidth="180"/>
-        <Button text="➕ Tạo mới" onAction="#handleSaveQuestionSet"/>
+        <Button text="Tạo mới" onAction="#handleSaveQuestionSet"/>
     </HBox>
 
     <!-- Bảng hiển thị câu hỏi -->
@@ -40,27 +41,36 @@
         <TextField fx:id="questionField" GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.columnSpan="3" promptText="Nhập nội dung câu hỏi..."/>
 
         <Label text="A:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-        <TextField fx:id="option1Field" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        <HBox alignment="CENTER_LEFT" spacing="5" GridPane.rowIndex="1" GridPane.columnIndex="1">
+            <TextField fx:id="option1Field" HBox.hgrow="ALWAYS"/>
+            <CheckBox fx:id="correctOptionA" text="Đúng"/>
+        </HBox>
 
         <Label text="B:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-        <TextField fx:id="option2Field" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+        <HBox alignment="CENTER_LEFT" spacing="5" GridPane.rowIndex="1" GridPane.columnIndex="3">
+            <TextField fx:id="option2Field" HBox.hgrow="ALWAYS"/>
+            <CheckBox fx:id="correctOptionB" text="Đúng"/>
+        </HBox>
 
         <Label text="C:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-        <TextField fx:id="option3Field" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        <HBox alignment="CENTER_LEFT" spacing="5" GridPane.rowIndex="2" GridPane.columnIndex="1">
+            <TextField fx:id="option3Field" HBox.hgrow="ALWAYS"/>
+            <CheckBox fx:id="correctOptionC" text="Đúng"/>
+        </HBox>
 
         <Label text="D:" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
-        <TextField fx:id="option4Field" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
-
-        <Label text="Đáp án đúng:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-        <TextField fx:id="correctField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+        <HBox alignment="CENTER_LEFT" spacing="5" GridPane.rowIndex="2" GridPane.columnIndex="3">
+            <TextField fx:id="option4Field" HBox.hgrow="ALWAYS"/>
+            <CheckBox fx:id="correctOptionD" text="Đúng"/>
+        </HBox>
     </GridPane>
 
     <!-- Nút thao tác -->
     <HBox spacing="10" alignment="CENTER">
-        <Button text="➕ Thêm" onAction="#handleAddQuestion"/>
-        <Button text="✏️ Sửa" onAction="#handleEditQuestion"/>
-        <Button text="🗑️ Xóa" onAction="#handleDeleteQuestion"/>
-        <Button text="⬅️ Quay lại" onAction="#handleBack"/>
+        <Button text="Thêm" onAction="#handleAddQuestion"/>
+        <Button text="Sửa" onAction="#handleEditQuestion"/>
+        <Button text="Xóa" onAction="#handleDeleteQuestion"/>
+        <Button text="Quay lại" onAction="#handleBack"/>
     </HBox>
 
 </VBox>

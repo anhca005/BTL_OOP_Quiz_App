@@ -26,7 +26,7 @@ public class QuizApplication extends Application {
     @Override
     public void init() {
         DatabaseHelper.initDatabase();
-//        System.out.println("Database file path: " + Paths.get(DB_FILE).toAbsolutePath());
+//        System.out.println(" Database file path: " + Paths.get(DB_FILE).toAbsolutePath());
     }
 
     public static void main(String[] args) {

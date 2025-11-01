@@ -10,11 +10,11 @@ import java.util.List;
 public class QuestionDAO {
 
     /** ✅ Thêm 1 câu hỏi mới vào quiz */
-    public static int insertQuestion(int quizId, Question q) {
+    public static int insertQuestion(long quizId, Question q) {
         String sql = "INSERT INTO questions (quiz_id, question_text, correct_answer) VALUES (?, ?, ?)";
         try (Connection c = DatabaseHelper.getConnection();
              PreparedStatement p = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            p.setInt(1, quizId);
+            p.setLong(1, quizId);
             p.setString(2, q.getQuestionText());
             p.setString(3, q.getCorrectAnswer());
             p.executeUpdate();
@@ -28,12 +28,12 @@ public class QuestionDAO {
     }
 
     /** ✅ Lấy danh sách câu hỏi thuộc 1 quiz */
-    public static List<Question> getQuestionsByQuiz(int quizId) {
+    public static List<Question> getQuestionsByQuiz(long quizId) {
         List<Question> list = new ArrayList<>();
         String sql = "SELECT * FROM questions WHERE quiz_id = ?";
         try (Connection c = DatabaseHelper.getConnection();
              PreparedStatement p = c.prepareStatement(sql)) {
-            p.setInt(1, quizId);
+            p.setLong(1, quizId);
             try (ResultSet rs = p.executeQuery()) {
                 while (rs.next()) {
                     list.add(new Question(

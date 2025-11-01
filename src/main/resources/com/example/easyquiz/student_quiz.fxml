@@ -6,6 +6,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ScrollPane?>
 
+<?import java.net.URL?>
+
 <ScrollPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.easyquiz.controller.StudentQuizController"
@@ -14,12 +16,16 @@
             vbarPolicy="AS_NEEDED"
             hbarPolicy="NEVER">
 
+    <stylesheets>
+        <URL value="@student_quiz.css" />
+    </stylesheets>
+
     <VBox alignment="CENTER"
           spacing="10"
           style="-fx-padding: 20;"
           prefWidth="500">
 
-        <Label text="🧩 Làm bài trắc nghiệm"
+        <Label text="Làm bài trắc nghiệm"
                style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
 
         <HBox spacing="10" alignment="CENTER">
@@ -44,8 +50,8 @@
               prefWidth="Infinity"/>
 
         <HBox spacing="10" alignment="CENTER">
-            <Button fx:id="nextButton" text="Tiếp theo ➡" onAction="#handleNext" disable="true"/>
-            <Button text="⬅ Quay lại" onAction="#handleBack"/>
+            <Button fx:id="nextButton" text="Tiếp theo" onAction="#handleNext" disable="true"/>
+            <Button text="Quay lại" onAction="#handleBack"/>
         </HBox>
     </VBox>
 </ScrollPane>

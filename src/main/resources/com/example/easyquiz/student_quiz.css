@@ -1,0 +1,25 @@
+.option-button {
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px 15px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.option-button:hover {
+    -fx-background-color: #e0e0e0;
+}
+
+.option-button:pressed {
+    -fx-background-color: #d0d0d0;
+}
+
+.option-button.selected-option {
+    -fx-background-color: #a0d9ff; /* Màu xanh nhạt */
+    -fx-border-color: #007bff; /* Màu xanh đậm */
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+}

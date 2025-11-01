@@ -21,7 +21,7 @@ public class Question {
         this.id = new SimpleIntegerProperty(id);
         this.questionText = new SimpleStringProperty(questionText);
 
-        // ✅ Nếu options == null, thay bằng mảng rỗng
+        // Nếu options == null, thay bằng mảng rỗng
         if (options == null) {
             options = new String[0];
         }
@@ -31,7 +31,7 @@ public class Question {
         this.option3 = new SimpleStringProperty(options.length > 2 ? options[2] : "");
         this.option4 = new SimpleStringProperty(options.length > 3 ? options[3] : "");
 
-        this.correctAnswer = new SimpleStringProperty(correctAnswer != null ? correctAnswer : "");
+        this.correctAnswer = new SimpleStringProperty(correctAnswer != null ? correctAnswer.toLowerCase() : "");
     }
 
     // --- Constructor mặc định (dành cho JSON hoặc tạo trống)
@@ -65,7 +65,7 @@ public class Question {
     public StringProperty option4Property() { return option4; }
 
     public String getCorrectAnswer() { return correctAnswer.get(); }
-    public void setCorrectAnswer(String value) { correctAnswer.set(value); }
+    public void setCorrectAnswer(String value) { correctAnswer.set(value != null ? value.toLowerCase() : ""); }
     public StringProperty correctAnswerProperty() { return correctAnswer; }
 
     // --- Option Helpers ---
@@ -79,7 +79,7 @@ public class Question {
     }
 
     public void setOptions(String[] options) {
-        if (options == null) return; // ✅ an toàn hơn
+        if (options == null) return; // an toàn hơn
         if (options.length > 0) setOption1(options[0]);
         if (options.length > 1) setOption2(options[1]);
         if (options.length > 2) setOption3(options[2]);

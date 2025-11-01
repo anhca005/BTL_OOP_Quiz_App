@@ -7,27 +7,60 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Random;
+
 public class QuizDAO {
 
-    /** ✅ Thêm bộ câu hỏi mới (quiz) */
-    public static int insertQuiz(int teacherId, String title, String description) {
-        String sql = "INSERT INTO quizzes (user_id, title, description) VALUES (?, ?, ?)";
+    private static final Random random = new Random();
+
+    /**
+     * Tạo một ID quiz ngẫu nhiên gồm 11 chữ số.
+     * Đảm bảo ID là duy nhất bằng cách kiểm tra trong DB.
+     */
+    public static long generateRandomQuizId() {
+        long id;
+        do {
+            // Tạo số ngẫu nhiên từ 10^10 đến 10^11 - 1
+            id = 10_000_000_000L + (long)(random.nextDouble() * (99_999_999_999L - 10_000_000_000L + 1));
+        } while (isQuizIdExists(id)); // Kiểm tra xem ID đã tồn tại chưa
+        return id;
+    }
+
+    /**
+     * Kiểm tra xem một quiz ID đã tồn tại trong cơ sở dữ liệu chưa.
+     */
+    private static boolean isQuizIdExists(long quizId) {
+        String sql = "SELECT COUNT(*) FROM quizzes WHERE quiz_id = ?";
         try (Connection c = DatabaseHelper.getConnection();
-             PreparedStatement p = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            p.setInt(1, teacherId);
-            p.setString(2, title);
-            p.setString(3, description);
+             PreparedStatement p = c.prepareStatement(sql)) {
+            p.setLong(1, quizId);
+            try (ResultSet rs = p.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }            }
+        } catch (SQLException e) {
+            System.err.println("[QuizDAO] isQuizIdExists error: " + e.getMessage());
+        }
+        return false;
+    }
+
+    /** Thêm bộ câu hỏi mới (quiz) */
+    public static long insertQuiz(long quizId, int teacherId, String title, String description) {
+        String sql = "INSERT INTO quizzes (quiz_id, user_id, title, description) VALUES (?, ?, ?, ?)";
+        try (Connection c = DatabaseHelper.getConnection();
+             PreparedStatement p = c.prepareStatement(sql)) {
+            p.setLong(1, quizId);
+            p.setInt(2, teacherId);
+            p.setString(3, title);
+            p.setString(4, description);
             p.executeUpdate();
-            try (ResultSet rs = p.getGeneratedKeys()) {
-                if (rs.next()) return rs.getInt(1);
-            }
+            return quizId;
         } catch (SQLException e) {
             System.err.println("[QuizDAO] insertQuiz error: " + e.getMessage());
         }
-        return -1;
+        return -1L;
     }
 
-    /** ✅ Lấy danh sách tất cả quiz theo giáo viên */
     public static List<Quiz> getAllByTeacher(int teacherId) {
         List<Quiz> list = new ArrayList<>();
         String sql = "SELECT * FROM quizzes WHERE user_id = ?";
@@ -37,7 +70,7 @@ public class QuizDAO {
             try (ResultSet rs = p.executeQuery()) {
                 while (rs.next()) {
                     list.add(new Quiz(
-                            rs.getInt("quiz_id"),
+                            rs.getLong("quiz_id"),
                             rs.getInt("user_id"),
                             rs.getString("title"),
                             rs.getString("description"),
@@ -51,12 +84,12 @@ public class QuizDAO {
         return list;
     }
 
-    /** ✅ Xóa 1 quiz (và các câu hỏi + options liên quan) */
-    public static boolean deleteQuiz(int quizId) {
+    /** Xóa 1 quiz (và các câu hỏi + options liên quan) */
+    public static boolean deleteQuiz(long quizId) {
         String sql = "DELETE FROM quizzes WHERE quiz_id = ?";
         try (Connection c = DatabaseHelper.getConnection();
              PreparedStatement p = c.prepareStatement(sql)) {
-            p.setInt(1, quizId);
+            p.setLong(1, quizId);
             return p.executeUpdate() > 0;
         } catch (SQLException e) {
             System.err.println("[QuizDAO] deleteQuiz error: " + e.getMessage());
@@ -73,7 +106,7 @@ public class QuizDAO {
             try (ResultSet rs = p.executeQuery()) {
                 if (rs.next()) {
                     return new Quiz(
-                            rs.getInt("quiz_id"),
+                            rs.getLong("quiz_id"),
                             rs.getInt("user_id"),
                             rs.getString("title"),
                             rs.getString("description"),
