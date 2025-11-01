@@ -29,6 +29,11 @@ public class TeacherLibraryController {
     private Button deleteQuizButton;
 
     private User currentUser;
+    private TeacherMainController mainController;
+
+    public void setMainController(TeacherMainController mainController) {
+        this.mainController = mainController;
+    }
 
     @FXML
     private void initialize() {
@@ -107,19 +112,8 @@ public class TeacherLibraryController {
 
     @FXML
     private void handleBack() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/easyquiz/teacher_home.fxml"));
-            Parent root = loader.load();
-
-            TeacherHomeController controller = loader.getController();
-            controller.setCurrentUser(currentUser);
-
-            Stage stage = (Stage) quizListView.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Teacher Home");
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (mainController != null) {
+            mainController.showHome();
         }
     }
 }

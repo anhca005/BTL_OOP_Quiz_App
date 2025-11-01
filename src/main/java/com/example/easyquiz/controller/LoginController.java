@@ -54,15 +54,15 @@ public class LoginController {
                 FXMLLoader loader;
 
                 if ("teacher".equalsIgnoreCase(user.getRole())) {
-                    loader = new FXMLLoader(getClass().getResource("/com/example/easyquiz/teacher_home.fxml"));
+                    loader = new FXMLLoader(getClass().getResource("/com/example/easyquiz/teacher_main.fxml"));
                     Parent root = loader.load();
-                    TeacherHomeController controller = loader.getController();
+                    TeacherMainController controller = loader.getController();
                     controller.setCurrentUser(user);
                     stage.setScene(new Scene(root));
                 } else {
-                    loader = new FXMLLoader(getClass().getResource("/com/example/easyquiz/student_home.fxml"));
+                    loader = new FXMLLoader(getClass().getResource("/com/example/easyquiz/student_main.fxml"));
                     Parent root = loader.load();
-                    StudentHomeController controller = loader.getController();
+                    StudentMainController controller = loader.getController();
                     controller.setCurrentUser(user);
                     stage.setScene(new Scene(root));
                 }

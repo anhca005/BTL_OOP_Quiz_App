@@ -22,7 +22,6 @@
                 <Button text="Tạo quiz mới" onAction="#handleCreateNewQuiz" styleClass="create-btn"/>
                 <Button fx:id="deleteQuizButton" text="Xóa quiz" onAction="#handleDeleteQuiz" styleClass="delete-btn" disable="true"/>
                 <Pane HBox.hgrow="ALWAYS" />
-                <Button text="Quay lại" onAction="#handleBack" />
             </HBox>
 
             <!-- Tiêu đề -->

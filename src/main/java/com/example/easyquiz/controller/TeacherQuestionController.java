@@ -47,6 +47,11 @@ public class TeacherQuestionController {
     private final ObservableList<Quiz> quizList = FXCollections.observableArrayList();
 
     private User currentUser;
+    private TeacherMainController mainController;
+
+    public void setMainController(TeacherMainController mainController) {
+        this.mainController = mainController;
+    }
 
     public void setCurrentUser(User user) {
         this.currentUser = Session.getUser();
@@ -261,20 +266,8 @@ public class TeacherQuestionController {
     /** Quay lại màn hình chính của giáo viên */
     @FXML
     private void handleBack(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/easyquiz/teacher_home.fxml"));
-            Parent root = loader.load();
-
-            TeacherHomeController controller = loader.getController();
-            controller.setCurrentUser(currentUser);
-
-            Stage stage = (Stage) questionTable.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Trang Giáo viên");
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Không thể quay lại màn hình chính!");
+        if (mainController != null) {
+            mainController.showHome();
         }
     }
 

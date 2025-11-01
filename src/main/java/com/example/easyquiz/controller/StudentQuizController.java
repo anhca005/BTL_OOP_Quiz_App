@@ -50,6 +50,11 @@ public class StudentQuizController {
     private List<Button> questionNavButtons;
     private Timeline timeline;
     private IntegerProperty timeSeconds;
+    private StudentMainController mainController;
+
+    public void setMainController(StudentMainController mainController) {
+        this.mainController = mainController;
+    }
 
     public void setCurrentUser(User user) {
         this.currentUser = user;
@@ -60,6 +65,16 @@ public class StudentQuizController {
         quizContentPane.setVisible(false);
         navigationPane.setVisible(false);
         timerLabel.setVisible(false);
+    }
+
+    @FXML
+    private void handleBackToHome() {
+        if (timeline != null) {
+            timeline.stop();
+        }
+        if (mainController != null) {
+            mainController.showHome();
+        }
     }
 
     @FXML
