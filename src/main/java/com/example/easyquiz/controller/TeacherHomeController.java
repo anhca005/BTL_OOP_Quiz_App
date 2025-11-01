@@ -63,4 +63,23 @@ public class TeacherHomeController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void handleLibrary() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/easyquiz/teacher_library.fxml"));
+            Parent root = loader.load();
+
+            // Lấy controller của trang Library và truyền thông tin user
+            TeacherLibraryController controller = loader.getController();
+            controller.setCurrentUser(currentUser);
+
+            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Your Quizzes");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
