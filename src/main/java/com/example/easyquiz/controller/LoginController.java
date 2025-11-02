@@ -2,6 +2,7 @@ package com.example.easyquiz.controller;
 
 import com.example.easyquiz.data.dao.UserDAO;
 import com.example.easyquiz.model.User;
+import com.example.easyquiz.utils.AlertUtils; // Added
 import com.example.easyquiz.utils.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,13 +40,13 @@ public class LoginController {
         String password = passwordField.getText().trim();
 
         if (email.isEmpty() || password.isEmpty()) {
-            showAlert("Lỗi", "Vui lòng nhập đầy đủ email và mật khẩu!");
+            AlertUtils.showAlert("Lỗi", "Vui lòng nhập đầy đủ email và mật khẩu!"); // Corrected
             return;
         }
 
-        User user = UserDAO.findByEmailAndPassword(email, password);
+        User user = UserDAO.authenticate(email, password);
         if (user != null) {
-            showAlert("Thành công", "Xin chào " + user.getUser_name() + " (" + user.getRole() + ")");
+            AlertUtils.showAlert("Thành công", "Xin chào " + user.getUser_name() + " (" + user.getRole() + ")"); // Corrected
             Session.setUser(user);
 
             try {
@@ -53,26 +54,26 @@ public class LoginController {
                 FXMLLoader loader;
 
                 if ("teacher".equalsIgnoreCase(user.getRole())) {
-                    loader = new FXMLLoader(getClass().getResource("/com/example/easyquiz/teacher_home.fxml"));
+                    loader = new FXMLLoader(getClass().getResource("/com/example/easyquiz/teacher_main.fxml"));
                     Parent root = loader.load();
-                    TeacherHomeController controller = loader.getController();
+                    TeacherMainController controller = loader.getController();
                     controller.setCurrentUser(user);
                     stage.setScene(new Scene(root));
                 } else {
-                    loader = new FXMLLoader(getClass().getResource("/com/example/easyquiz/student_home.fxml"));
+                    loader = new FXMLLoader(getClass().getResource("/com/example/easyquiz/student_main.fxml"));
                     Parent root = loader.load();
-                    StudentHomeController controller = loader.getController();
+                    StudentMainController controller = loader.getController();
                     controller.setCurrentUser(user);
                     stage.setScene(new Scene(root));
                 }
 
             } catch (IOException e) {
                 e.printStackTrace();
-                showAlert("Lỗi", "Không thể tải màn hình chính!");
+                AlertUtils.showAlert("Lỗi", "Không thể tải màn hình chính!"); // Corrected
             }
 
         } else {
-            showAlert("Sai thông tin", "Email hoặc mật khẩu không đúng!");
+            AlertUtils.showAlert("Sai thông tin", "Email hoặc mật khẩu không đúng!"); // Corrected
         }
     }
 
@@ -87,15 +88,8 @@ public class LoginController {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert("Lỗi", "Không thể tải màn hình đăng ký!");
+            AlertUtils.showAlert("Lỗi", "Không thể tải màn hình đăng ký!"); // Corrected
         }
     }
 
-    private void showAlert(String title, String msg) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(msg);
-        alert.showAndWait();
-    }
 }

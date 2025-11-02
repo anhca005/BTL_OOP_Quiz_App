@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" stylesheets="@../teacher_home.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.easyquiz.controller.TeacherClassDetailsController">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="classNameLabel" alignment="CENTER" prefHeight="50.0" prefWidth="900.0" style="-fx-background-color: #4facfe;" text="Chi tiết Lớp học: [Tên lớp]" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </Label>
+            <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#handleBackToClassManagement" styleClass="back-btn" text="Quay lại">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </HBox>
+            <TableView fx:id="studentTable" prefHeight="450.0" prefWidth="860.0">
+              <columns>
+                <TableColumn fx:id="colStudentName" prefWidth="300.0" text="Tên học sinh" />
+                <TableColumn fx:id="colStudentEmail" prefWidth="300.0" text="Email" />
+                  <TableColumn fx:id="colAverageScore" prefWidth="250.0" text="Điểm trung bình" />
+              </columns>
+               <VBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </VBox.margin>
+            </TableView>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

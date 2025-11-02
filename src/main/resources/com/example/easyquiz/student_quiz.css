@@ -23,3 +23,17 @@
     -fx-text-fill: #000000;
     -fx-font-weight: bold;
 }
+
+.question-nav-button {
+    -fx-min-width: 40px;
+    -fx-background-color: #e0e0e0;
+    -fx-border-color: #c0c0c0;
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+}
+
+.question-nav-button.question-answered {
+    -fx-background-color: #a0d9ff;
+    -fx-border-color: #007bff;
+    -fx-font-weight: bold;
+}

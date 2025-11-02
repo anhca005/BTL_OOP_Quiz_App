@@ -1,13 +1,26 @@
 -- ===========================
+--  CLASSES TABLE
+-- ===========================
+CREATE TABLE IF NOT EXISTS classes (
+    class_id      INTEGER PRIMARY KEY AUTOINCREMENT,
+    class_name    TEXT NOT NULL UNIQUE,
+    teacher_id    INTEGER NOT NULL,
+    FOREIGN KEY (teacher_id) REFERENCES users(user_id)
+);
+
+-- ===========================
 --  USERS TABLE
 -- ===========================
 CREATE TABLE IF NOT EXISTS users (
     user_id       INTEGER PRIMARY KEY AUTOINCREMENT,
     user_name     TEXT NOT NULL,
+    student_code  TEXT UNIQUE,
     email         TEXT UNIQUE NOT NULL,
     password      TEXT NOT NULL,
     role          TEXT NOT NULL CHECK(role IN ('teacher', 'student')),
-    average_score REAL DEFAULT 0
+    average_score REAL DEFAULT 0,
+    class_id      INTEGER,
+    FOREIGN KEY (class_id) REFERENCES classes(class_id)
 );
 
 -- ===========================
@@ -18,6 +31,7 @@ CREATE TABLE IF NOT EXISTS quizzes (
     user_id     INTEGER NOT NULL, -- giáo viên tạo quiz
     title       TEXT NOT NULL,
     description TEXT,
+    duration    INTEGER DEFAULT 10, -- Thời gian làm bài (phút)
     created_at  TEXT DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );

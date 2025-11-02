@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.easyquiz.controller.StudentHomeController"
-      alignment="CENTER" spacing="20" style="-fx-padding: 30">
-
-    <Label fx:id="welcomeLabel"
-           text="Xin chào Học sinh"
-           style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
-
-    <Button text="🎯 Làm bài kiểm tra" onAction="#handleDoQuiz" prefWidth="200"/>
-    <Button text="📜 Xem lịch sử làm bài" onAction="#handleViewHistory" prefWidth="200"/>
-    <Button text="🚪 Đăng xuất" onAction="#handleLogout" prefWidth="200"/>
-
-</VBox>
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.easyquiz.controller.StudentHomeController" prefHeight="400.0" prefWidth="600.0">
+   <center>
+      <VBox alignment="CENTER" spacing="20">
+         <children>
+            <Label fx:id="welcomeLabel" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Xin chào Học sinh" />
+            <Label fx:id="studentCodeLabel" style="-fx-font-size: 16px;" />
+            <Button onAction="#handleDoQuiz" prefWidth="200.0" text="🎯 Làm bài kiểm tra" />
+            <Button onAction="#handleViewHistory" prefWidth="200.0" text="📜 Xem lịch sử làm bài" />
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

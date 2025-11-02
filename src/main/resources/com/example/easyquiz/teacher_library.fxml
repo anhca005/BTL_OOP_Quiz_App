@@ -18,16 +18,17 @@
             </padding>
 
 
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Button text="Tạo quiz mới" onAction="#handleCreateNewQuiz" styleClass="create-btn"/>
+                <Button fx:id="deleteQuizButton" text="Xóa quiz" onAction="#handleDeleteQuiz" styleClass="delete-btn" disable="true"/>
+                <Pane HBox.hgrow="ALWAYS" />
+            </HBox>
+
             <!-- Tiêu đề -->
             <Label fx:id="teacherNameLabel" styleClass="title-label"/>
 
             <!-- Danh sách quiz -->
             <ListView fx:id="quizListView" prefHeight="480" prefWidth="760"/>
-
-            <!-- Hàng nút điều hướng -->
-            <HBox spacing="10" alignment="CENTER_RIGHT">
-                <Button text="Back" onAction="#handleBack" />
-            </HBox>
         </VBox>
     </children>
 </AnchorPane>

@@ -16,34 +16,34 @@ public class StudentHomeController {
     @FXML
     private Label welcomeLabel;
 
+    @FXML
+    private Label studentCodeLabel;
+
     private User currentUser;
 
     public void setCurrentUser(User user) {
-        this.currentUser = Session.getUser();
-        if (user != null) {
-            System.out.println("✅ Đã gán currentUser: " + user.getUser_name());
+        this.currentUser = user;
+        if (currentUser != null) {
+            welcomeLabel.setText("Welcome, " + currentUser.getUser_name());
+            if (currentUser.getStudentCode() != null && !currentUser.getStudentCode().isEmpty()) {
+                studentCodeLabel.setText("(MSV: " + currentUser.getStudentCode() + ")");
+            }
         } else {
             System.err.println("⚠️ currentUser NULL trong setCurrentUser()");
         }
     }
 
+    private StudentMainController mainController;
+
+    public void setMainController(StudentMainController mainController) {
+        this.mainController = mainController;
+    }
+
     /** 🔹 Nút: Làm bài kiểm tra */
     @FXML
     private void handleDoQuiz() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/easyquiz/student_quiz.fxml"));
-            Parent root = loader.load();
-
-            StudentQuizController controller = loader.getController();
-            controller.setCurrentUser(currentUser);
-
-            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("🧠 Làm bài kiểm tra");
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (mainController != null) {
+            mainController.showQuiz();
         }
     }
 

@@ -39,6 +39,7 @@ public class TeacherQuestionController {
     @FXML private CheckBox correctOptionC;
     @FXML private CheckBox correctOptionD;
     @FXML private TextField setNameField; // Đã thêm lại setNameField
+    @FXML private Spinner<Integer> durationSpinner;
 
     @FXML private ComboBox<Quiz> quizComboBox; // danh sách quiz (bộ câu hỏi)
 
@@ -46,6 +47,11 @@ public class TeacherQuestionController {
     private final ObservableList<Quiz> quizList = FXCollections.observableArrayList();
 
     private User currentUser;
+    private TeacherMainController mainController;
+
+    public void setMainController(TeacherMainController mainController) {
+        this.mainController = mainController;
+    }
 
     public void setCurrentUser(User user) {
         this.currentUser = Session.getUser();
@@ -233,13 +239,15 @@ public class TeacherQuestionController {
     @FXML
     private void handleSaveQuestionSet(ActionEvent event) {
         String title = setNameField.getText().trim();
+        int duration = durationSpinner.getValue();
+
         if (title.isEmpty()) {
             showAlert(Alert.AlertType.WARNING, "Vui lòng nhập tên bộ câu hỏi!");
             return;
         }
 
         long newQuizId = QuizDAO.generateRandomQuizId(); // Tạo ID ngẫu nhiên
-        long quizId = QuizDAO.insertQuiz(newQuizId, currentUser.getUser_id(), title, "Tạo trong app");
+        long quizId = QuizDAO.insertQuiz(newQuizId, currentUser.getUser_id(), title, "Tạo trong app", duration);
         
         if (quizId != -1L) {
             loadQuizList();
@@ -258,20 +266,8 @@ public class TeacherQuestionController {
     /** Quay lại màn hình chính của giáo viên */
     @FXML
     private void handleBack(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/easyquiz/teacher_home.fxml"));
-            Parent root = loader.load();
-
-            TeacherHomeController controller = loader.getController();
-            controller.setCurrentUser(currentUser);
-
-            Stage stage = (Stage) questionTable.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Trang Giáo viên");
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Không thể quay lại màn hình chính!");
+        if (mainController != null) {
+            mainController.showLibrary();
         }
     }
 

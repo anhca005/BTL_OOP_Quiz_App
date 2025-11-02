@@ -12,20 +12,22 @@ public class Quiz {
     private final IntegerProperty user_id;
     private final StringProperty title;
     private final StringProperty description;
+    private final IntegerProperty duration;
     private final StringProperty created_at;
 
     // --- Constructor ---
-    public Quiz(long quiz_id, int user_id, String title, String description, String created_at) {
+    public Quiz(long quiz_id, int user_id, String title, String description, int duration, String created_at) {
         this.quiz_id = new SimpleLongProperty(quiz_id);
         this.user_id = new SimpleIntegerProperty(user_id);
         this.title = new SimpleStringProperty(title);
         this.description = new SimpleStringProperty(description);
+        this.duration = new SimpleIntegerProperty(duration);
         this.created_at = new SimpleStringProperty(created_at);
     }
 
     // Constructor mặc định
     public Quiz() {
-        this(0L, 0, "", "", "");
+        this(0L, 0, "", "", 10, "");
     }
 
     // --- Getter / Setter / Property ---
@@ -44,6 +46,10 @@ public class Quiz {
     public String getDescription() { return description.get(); }
     public void setDescription(String value) { description.set(value); }
     public StringProperty descriptionProperty() { return description; }
+
+    public int getDuration() { return duration.get(); }
+    public void setDuration(int value) { duration.set(value); }
+    public IntegerProperty durationProperty() { return duration; }
 
     public String getCreated_at() { return created_at.get(); }
     public void setCreated_at(String value) { created_at.set(value); }
