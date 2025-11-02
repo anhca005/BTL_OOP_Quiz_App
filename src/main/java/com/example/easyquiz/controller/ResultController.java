@@ -57,27 +57,16 @@ public class ResultController {
         }
     }
 
+    private StudentMainController mainController;
+
+    public void setMainController(StudentMainController mainController) {
+        this.mainController = mainController;
+    }
+
     @FXML
     private void handleBackToHome() {
-        if (currentUser == null) {
-            AlertUtils.showAlert(Alert.AlertType.ERROR, "Error", "Cannot load user data.");
-            return;
-        }
-
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/easyquiz/student_home.fxml"));
-            Parent root = loader.load();
-
-            StudentHomeController controller = loader.getController();
-            controller.setCurrentUser(currentUser);
-
-            Stage stage = (Stage) marks.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Student Home");
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            AlertUtils.showAlert(Alert.AlertType.ERROR, "Error", "Could not go back to home screen.");
+        if (mainController != null) {
+            mainController.showHome();
         }
     }
 }

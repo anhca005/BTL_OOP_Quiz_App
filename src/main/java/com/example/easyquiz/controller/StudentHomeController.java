@@ -33,23 +33,17 @@ public class StudentHomeController {
         }
     }
 
+    private StudentMainController mainController;
+
+    public void setMainController(StudentMainController mainController) {
+        this.mainController = mainController;
+    }
+
     /** 🔹 Nút: Làm bài kiểm tra */
     @FXML
     private void handleDoQuiz() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/easyquiz/student_quiz.fxml"));
-            Parent root = loader.load();
-
-            StudentQuizController controller = loader.getController();
-            controller.setCurrentUser(currentUser);
-
-            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("🧠 Làm bài kiểm tra");
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (mainController != null) {
+            mainController.showQuiz();
         }
     }
 

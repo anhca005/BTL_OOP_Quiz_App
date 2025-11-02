@@ -54,29 +54,19 @@ public class StudentHistoryController {
         resultTable.setItems(results);
     }
 
+    private StudentMainController mainController;
+
+    public void setMainController(StudentMainController mainController) {
+        this.mainController = mainController;
+    }
+
     /**
      * Xử lý khi nhấn nút "Quay lại" → quay về trang học sinh.
      */
     @FXML
     private void handleBack() {
-        try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/com/example/easyquiz/student_home.fxml")
-            );
-            Parent root = loader.load();
-
-            // ✅ Gán lại user để không bị mất khi quay lại
-            StudentHomeController controller = loader.getController();
-            controller.setCurrentUser(currentUser);
-
-            Stage stage = (Stage) resultTable.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Trang học sinh");
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("❌ Lỗi khi quay lại trang học sinh!");
+        if (mainController != null) {
+            mainController.showHome();
         }
     }
 }

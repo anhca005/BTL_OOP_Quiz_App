@@ -65,22 +65,16 @@ public class TeacherClassDetailsController {
         }
     }
 
+    private TeacherMainController mainController;
+
+    public void setMainController(TeacherMainController mainController) {
+        this.mainController = mainController;
+    }
+
     @FXML
     private void handleBackToClassManagement() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/easyquiz/teacher_class_management.fxml"));
-            Parent root = loader.load();
-
-            TeacherClassManagementController controller = loader.getController();
-            controller.setCurrentUser(currentUser); // Pass the teacher user back
-
-            Stage stage = (Stage) classNameLabel.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Class Management");
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            AlertUtils.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể quay lại màn hình quản lý lớp học.");
+        if (mainController != null) {
+            mainController.showClass();
         }
     }
 }

@@ -50,6 +50,11 @@ public class StudentQuizController {
     private List<Button> questionNavButtons;
     private Timeline timeline;
     private IntegerProperty timeSeconds;
+    private StudentMainController mainController;
+
+    public void setMainController(StudentMainController mainController) {
+        this.mainController = mainController;
+    }
 
     public void setCurrentUser(User user) {
         this.currentUser = user;
@@ -60,6 +65,16 @@ public class StudentQuizController {
         quizContentPane.setVisible(false);
         navigationPane.setVisible(false);
         timerLabel.setVisible(false);
+    }
+
+    @FXML
+    private void handleBackToHome() {
+        if (timeline != null) {
+            timeline.stop();
+        }
+        if (mainController != null) {
+            mainController.showHome();
+        }
     }
 
     @FXML
@@ -236,22 +251,8 @@ public class StudentQuizController {
         double finalScore = calculateFinalScore();
         ResultDAO.insertResult(currentUser.getUser_id(), currentQuizId, finalScore);
 
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/easyquiz/result.fxml"));
-            Parent root = loader.load();
-
-            ResultController controller = loader.getController();
-            controller.setScore(finalScore, questions.size());
-            controller.setCurrentUser(currentUser);
-
-            Stage stage = (Stage) questionLabel.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Quiz Result");
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            AlertUtils.showAlert(Alert.AlertType.ERROR, "Error", "Could not load the result screen.");
+        if (mainController != null) {
+            mainController.loadPage("result", finalScore, questions.size());
         }
     }
 
@@ -273,20 +274,8 @@ public class StudentQuizController {
         if (timeline != null) {
             timeline.stop();
         }
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/easyquiz/student_home.fxml"));
-            Parent root = loader.load();
-
-            StudentHomeController controller = loader.getController();
-            controller.setCurrentUser(currentUser);
-
-            Stage stage = (Stage) quizIdField.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Student Home");
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            AlertUtils.showAlert(Alert.AlertType.ERROR, "Error", "Could not go back to home screen.");
+        if (mainController != null) {
+            mainController.showHome();
         }
     }
 }

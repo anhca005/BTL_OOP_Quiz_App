@@ -24,25 +24,19 @@ public class TeacherHomeController {
         }
     }
 
+    private TeacherMainController mainController;
+
+    public void setMainController(TeacherMainController mainController) {
+        this.mainController = mainController;
+    }
+
     /**
      * Chuyển sang trang quản lý câu hỏi khi bấm “Create quiz”
      */
     @FXML
     private void handleManageQuestions() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/easyquiz/teacher_questions.fxml"));
-            Parent root = loader.load();
-
-            // Lấy controller của trang tiếp theo và truyền thông tin user
-            TeacherQuestionController controller = loader.getController();
-            controller.setCurrentUser(currentUser);
-
-            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Question Management");
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (mainController != null) {
+            mainController.showLibrary();
         }
     }
 

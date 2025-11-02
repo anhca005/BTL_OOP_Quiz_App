@@ -17,7 +17,7 @@
                     <Label text="Nhập Quiz ID:" />
                     <TextField fx:id="quizIdField" promptText="Ví dụ: 12345678901" HBox.hgrow="ALWAYS" />
                     <Button fx:id="startButton" onAction="#handleStartQuiz" text="Bắt đầu" />
-                    <Button onAction="#handleBack" text="Quay lại" />
+                    <Button onAction="#handleBackToHome" text="Quay lại" />
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefWidth="200.0">
                     <children>
@@ -47,7 +47,6 @@
                 </HBox>
                 <Separator />
                 <FlowPane fx:id="questionNavPane" alignment="CENTER" hgap="5" vgap="5" prefWrapLength="750.0" />
-                 <Button text="Quay lại" onAction="#handleBack"/>
             </children>
         </VBox>
     </bottom>

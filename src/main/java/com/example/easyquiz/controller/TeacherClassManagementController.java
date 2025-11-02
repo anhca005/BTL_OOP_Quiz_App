@@ -35,6 +35,11 @@ public class TeacherClassManagementController {
     private TableColumn<Classroom, Void> colActions;
 
     private User currentUser;
+    private TeacherMainController mainController;
+
+    public void setMainController(TeacherMainController mainController) {
+        this.mainController = mainController;
+    }
 
     public void setCurrentUser(User user) {
         this.currentUser = user;
@@ -98,21 +103,8 @@ public class TeacherClassManagementController {
                     { 
                         viewButton.setOnAction(event -> {
                             Classroom classroom = getTableView().getItems().get(getIndex());
-                            try {
-                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/easyquiz/teacher_class_details.fxml"));
-                                Parent root = loader.load();
-
-                                TeacherClassDetailsController controller = loader.getController();
-                                controller.setCurrentUser(currentUser);
-                                controller.setCurrentClassroom(classroom);
-
-                                Stage stage = (Stage) viewButton.getScene().getWindow();
-                                stage.setScene(new Scene(root));
-                                stage.setTitle("Class Details: " + classroom.getClass_name());
-                                stage.show();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                                AlertUtils.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể tải chi tiết lớp học.");
+                            if (mainController != null) {
+                                mainController.loadPage("teacher_class_details", classroom);
                             }
                         });
                     }
@@ -138,18 +130,8 @@ public class TeacherClassManagementController {
     }
     @FXML
     private void handleBack() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/easyquiz/teacher_home.fxml"));
-            Parent root = loader.load();
-            TeacherHomeController controller = loader.getController();
-            controller.setCurrentUser(currentUser);
-            Stage stage = (Stage) classTable.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Teacher Home");
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            AlertUtils.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể quay lại màn hình chính.");
+        if (mainController != null) {
+            mainController.showHome();
         }
     }
 }
