@@ -1,0 +1,23 @@
+.title-label{
+    -fx-font-size: 50px;
+    -fx-text-fill:#ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.703), 5, 0, 2, 3);
+}
+
+.sub-title{
+    -fx-font-size: 20px;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.53), 3, 0, 2, 3);
+    padding: 0 0 20 0;
+}
+
+.create-btn{
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 35;
+    -fx-font-size: 20px;
+}
+
+.create-btn:hover{
+    -fx-text-fill:#0292F9;
+    -fx-cursor: hand;
+}

@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Itim&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Pixelify+Sans:wght@400..700&family=Preahvihear&display=swap');
+.root {
+    -fx-font-family: "Itim",serif;
+    -fx-font-size: 32px;
+    -fx-background-color: linear-gradient(
+        from 0% 0% to 0% 100%,   /* hướng top → bottom */
+        #0292F9 0%,              /* màu đầu tại 0% */
+        #3CAAF9 45%,             /* màu giữa tại 45% */
+        #82C8F9 100%             /* màu cuối tại 100% */
+    );
+}
+
+#welcomeLabel{
+    -fx-text-fill: white;
+    -fx-font-size: 70px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.703), 5, 0, 2, 3);
+}
+
+#studentCodeLabel{
+    -fx-text-fill: white;
+    -fx-font-size: 35px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.703), 2, 0, 1, 2);
+}
+
+.enter-code{
+    -fx-background-color: rgba(255, 255, 255, 0);
+    -fx-border-color: white;
+    -fx-border-width: 2;
+    -fx-border-style: solid;
+    -fx-border-radius: 35;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 30px;
+    -fx-background-radius: 35;
+    -fx-padding: 10 40 10 40;
+    -fx-cursor: hand;
+}
+
+.enter-code:hover{
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #0279f9;
+}

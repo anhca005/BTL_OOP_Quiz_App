@@ -56,7 +56,7 @@ public class TeacherLibraryController {
 
     public void setCurrentUser(User user) {
         this.currentUser = user;
-        teacherNameLabel.setText("Your quizzes, " + user.getUser_name());
+        teacherNameLabel.setText("Your Library, " + user.getUser_name());
         loadTeacherQuizzes();
     }
 

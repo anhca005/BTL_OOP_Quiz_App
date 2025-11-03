@@ -12,15 +12,16 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.easyquiz.controller.StudentHistoryController"
       alignment="TOP_CENTER" spacing="15"
-      style="-fx-padding: 20;">
+      stylesheets="@styles/student_history.css"
+      styleClass="root">
 
-    <Label text="📜 Lịch sử làm bài" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+    <Label text="Lịch sử làm bài" styleClass="title"/>
 
-    <TableView fx:id="resultTable" prefWidth="500" prefHeight="300">
+    <TableView fx:id="resultTable">
         <columns>
-            <TableColumn fx:id="quizColumn" text="Tên quiz" prefWidth="200"/>
-            <TableColumn fx:id="scoreColumn" text="Điểm" prefWidth="100"/>
-            <TableColumn fx:id="timeColumn" text="Thời gian nộp" prefWidth="200"/>
+            <TableColumn fx:id="quizColumn" text="Tên quiz" prefWidth="300"/>
+            <TableColumn fx:id="scoreColumn" text="Điểm" prefWidth="200"/>
+            <TableColumn fx:id="timeColumn" text="Thời gian nộp" prefWidth="300"/>
         </columns>
     </TableView>
 
