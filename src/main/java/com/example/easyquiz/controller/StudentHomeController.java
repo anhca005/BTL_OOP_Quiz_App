@@ -24,7 +24,7 @@ public class StudentHomeController {
     public void setCurrentUser(User user) {
         this.currentUser = user;
         if (currentUser != null) {
-            welcomeLabel.setText("Welcome, " + currentUser.getUser_name());
+            welcomeLabel.setText("Welcome, " + currentUser.getUser_name()+"!");
             if (currentUser.getStudentCode() != null && !currentUser.getStudentCode().isEmpty()) {
                 studentCodeLabel.setText("(MSV: " + currentUser.getStudentCode() + ")");
             }

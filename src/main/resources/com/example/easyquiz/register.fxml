@@ -4,24 +4,26 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.easyquiz.controller.RegisterController">
+<VBox spacing="20" alignment="CENTER" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.easyquiz.controller.RegisterController"
+      stylesheets="@styles/register.css">
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
-    <Label text="Đăng ký tài khoản" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+    <Label text="ĐĂNG KÝ" styleClass="title"/>
 
-    <TextField fx:id="nameField" promptText="Họ và tên"/>
-    <TextField fx:id="emailField" promptText="Email"/>
-    <PasswordField fx:id="passwordField" promptText="Mật khẩu"/>
-    <PasswordField fx:id="confirmPasswordField" promptText="Xác nhận mật khẩu"/>
+    <TextField fx:id="nameField" promptText="Họ và tên" styleClass="input-field"/>
+    <TextField fx:id="emailField" promptText="Nhập email" styleClass="input-field"/>
+    <PasswordField fx:id="passwordField" promptText="Nhập mật khẩu" styleClass="input-field"/>
+    <PasswordField fx:id="confirmPasswordField" promptText="Xác nhận mật khẩu" styleClass="input-field"/>
+
     <ChoiceBox fx:id="roleChoiceBox" prefWidth="200"/>
-    <TextField fx:id="studentCodeField" promptText="Mã sinh viên (nếu là học sinh)"/>
-    <TextField fx:id="classField" promptText="Tên lớp học (nếu là học sinh)"/>
+    <TextField fx:id="studentCodeField" promptText="Mã sinh viên" styleClass="input-field"/>
+    <TextField fx:id="classField" promptText="Tên lớp học" styleClass="input-field"/>
 
-    <HBox spacing="10" alignment="CENTER">
-        <Button fx:id="registerBtn" text="Đăng ký"/>
-        <Button fx:id="backBtn" text="Quay lại"/>
+    <HBox spacing="20" alignment="CENTER">
+        <Button fx:id="registerBtn" text="Đăng ký" styleClass="submit"/>
+        <Button fx:id="backBtn" text="Quay lại" styleClass="submit"/>
     </HBox>
 </VBox>

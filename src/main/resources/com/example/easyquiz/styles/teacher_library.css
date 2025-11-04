@@ -1,0 +1,47 @@
+.root{
+    -fx-font-size: 16px;
+    -fx-text-fill: #ffffff;
+}
+.title-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.list-view {
+    -fx-background-color: white;
+    -fx-border-color: #90caf9;
+    -fx-border-radius: 6;
+}
+
+.create-btn{
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 35;
+    -fx-font-size: 20px;
+}
+
+.create-btn:hover{
+    -fx-text-fill:#0292F9;
+    -fx-cursor: hand;
+}
+.delete-btn{
+    -fx-font-size: 20px;
+    -fx-background-radius: 35;
+}
+
+.delete-btn:hover{
+    -fx-text-fill:#0292F9;
+    -fx-cursor: hand;
+}
+
+#teacherNameLabel{
+     -fx-font-size: 50px;
+     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.703), 5, 0, 2, 3);
+}
+
+.sub-title{
+    -fx-font-size: 20px;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.53), 3, 0, 2, 3);
+    padding: 0 0 20 0;
+}

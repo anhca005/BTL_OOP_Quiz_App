@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Itim&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Pixelify+Sans:wght@400..700&family=Preahvihear&display=swap');
+.root {
+    -fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #0292F9, #82C8F9);
+    -fx-font-family: "Itim",serif;
+    -fx-font-size: 32px;
+    -fx-padding: 200px 120px;
+}
+
+.title{
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 40px;
+}
+
+.input-field {
+    -fx-min-width: 700px;
+    -fx-min-height: 50px;
+    -fx-font-size: 32px;
+    -fx-padding: 0 10 0 10;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.611), 5, 0, 0, 3);
+}
+.submit{
+    -fx-background-radius: 35;
+}
+
+.submit:hover{
+    -fx-cursor: hand; 
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #000000
+}

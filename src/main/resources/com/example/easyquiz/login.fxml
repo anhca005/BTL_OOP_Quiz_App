@@ -4,18 +4,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.easyquiz.controller.LoginController">
+<VBox spacing="20" alignment="CENTER" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.easyquiz.controller.LoginController"
+      stylesheets="@styles/login.css">
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
-    <Label text="Đăng nhập" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
-    <TextField fx:id="emailField" promptText="Email"/>
-    <PasswordField fx:id="passwordField" promptText="Password"/>
+    <Label text="ĐĂNG NHẬP" styleClass ="title"/>
+    <TextField fx:id="emailField" promptText="Nhập email" styleClass="input-field"/>
+    <PasswordField fx:id="passwordField" promptText="Nhập mật khẩu" styleClass="input-field"/>
 
-    <HBox spacing="10" alignment="CENTER">
-        <Button fx:id="loginBtn" text="Login"/>
-        <Button fx:id="registerBtn" text="Register"/>
+    <HBox spacing="20" alignment="CENTER">
+        <Button fx:id="loginBtn" text="Đăng Nhập" styleClass="submit"/>
+        <Button fx:id="registerBtn" text="Đăng ký" styleClass="submit"/>
     </HBox>
 </VBox>

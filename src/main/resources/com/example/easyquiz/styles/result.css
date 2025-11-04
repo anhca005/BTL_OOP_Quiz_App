@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Itim&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Pixelify+Sans:wght@400..700&family=Preahvihear&display=swap');
+.root {
+    -fx-font-family: "Itim",serif;
+    -fx-font-size: 32px;
+}
+
+#marks{
+    -fx-font-size: 32px;
+    -fx-padding: 32 32 32 32;
+}

@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Irish+Grover&family=Itim&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Pixelify+Sans:wght@400..700&family=Preahvihear&display=swap');
+.root {
+    -fx-font-family: "Itim",serif;
+    -fx-font-size: 16px;
+    -fx-background-color: #0292F9;
+}
+
+.navbar{
+    -fx-background-color: #0292F9;
+    -fx-padding: 10 15 10 15;
+}
+
+.logo{
+    -fx-font-family: "Irish Grover", system-ui;
+    -fx-font-size: 40px;
+    -fx-text-fill: #ffffff;
+}
+
+.bar{
+     -fx-background-color: #0095ff00;
+     -fx-text-fill: #ffffff;
+}
+
+.bar:hover{
+    -fx-cursor: hand;
+    -fx-underline: true;
+}
+
+#logoutBtn{
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 35;
+    -fx-text-fill: #0292F9;
+}

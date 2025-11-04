@@ -8,14 +8,21 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.easyquiz.controller.StudentHomeController" prefHeight="400.0" prefWidth="600.0">
+<BorderPane 
+   xmlns="http://javafx.com/javafx/17" 
+   xmlns:fx="http://javafx.com/fxml/1" 
+   fx:controller="com.example.easyquiz.controller.StudentHomeController" 
+   prefHeight="400.0" 
+   prefWidth="600.0"
+   stylesheets="@styles/student_home.css"
+   styleClass="root">
    <center>
       <VBox alignment="CENTER" spacing="20">
          <children>
-            <Label fx:id="welcomeLabel" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Xin chào Học sinh" />
-            <Label fx:id="studentCodeLabel" style="-fx-font-size: 16px;" />
-            <Button onAction="#handleDoQuiz" prefWidth="200.0" text="🎯 Làm bài kiểm tra" />
-            <Button onAction="#handleViewHistory" prefWidth="200.0" text="📜 Xem lịch sử làm bài" />
+            <Label fx:id="welcomeLabel"/>
+            <Label fx:id="studentCodeLabel"/>
+            <Button onAction="#handleDoQuiz" text="Enter code" styleClass="enter-code"/>
+            <!-- <Button onAction="#handleViewHistory" prefWidth="200.0" text="📜 Xem lịch sử làm bài" /> -->
          </children>
       </VBox>
    </center>

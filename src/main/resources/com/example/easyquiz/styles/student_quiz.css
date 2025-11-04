@@ -9,6 +9,48 @@
     -fx-alignment: CENTER_LEFT;
 }
 
+.title{
+    -fx-text-fill: white;
+    -fx-font-size: 50px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.703), 5, 0, 2, 3);
+}
+
+.id-insert{
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+}
+
+#quizIdField {
+    -fx-background-color: #ffffffed;
+    -fx-background-radius: 35;
+}
+
+#startButton{
+    -fx-background-color: #D0F1FF;
+    -fx-background-radius: 35;
+    -fx-font-size: 20px;
+}
+
+#startButton:hover{
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 35;
+    -fx-cursor: hand;
+}
+
+#returnButton{
+    -fx-background-color: #dedcdc;
+    -fx-background-radius: 35;
+    -fx-font-size: 20px;
+}
+
+#returnButton:hover{
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 35;
+    -fx-cursor: hand;
+}
+
+
 .option-button:hover {
     -fx-background-color: #e0e0e0;
 }

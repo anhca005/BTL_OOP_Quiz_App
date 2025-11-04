@@ -11,26 +11,11 @@
             fx:controller="com.example.easyquiz.controller.TeacherHomeController"
             prefWidth="900.0"
             prefHeight="600.0"
-            stylesheets="@teacher_home.css">
-
-    <children>
-        <!-- Nền gradient -->
-        <Rectangle width="900" height="600">
-            <fill>
-                <LinearGradient startX="0" startY="0" endX="0" endY="1">
-                    <stops>
-                        <Stop offset="0" color="#4facfe"/>
-                        <Stop offset="1" color="#00f2fe"/>
-                    </stops>
-                </LinearGradient>
-            </fill>
-        </Rectangle>
-
-        <!-- Nội dung chính -->
-        <VBox alignment="CENTER" spacing="20" layoutX="0" layoutY="60" prefWidth="900" prefHeight="540">
-            <Label fx:id="welcomeLabel" text="Welcome, teacher!" styleClass="welcome-text"/>
-            <Button text="Create quiz" onAction="#handleManageQuestions" styleClass="create-btn"/>
-        </VBox>
-    </children>
+            stylesheets="@styles/teacher_home.css"
+            styleClass="root">
+    <VBox alignment="CENTER" spacing="20" layoutX="0" layoutY="0" prefWidth="900" prefHeight="540">
+        <Label fx:id="welcomeLabel" text="Welcome, teacher!" styleClass="welcome-text"/>
+        <Button text="Create quiz" onAction="#handleManageQuestions" styleClass="create-btn"/>
+    </VBox>
 
 </AnchorPane>

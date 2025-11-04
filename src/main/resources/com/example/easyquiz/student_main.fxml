@@ -2,22 +2,27 @@
 
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.Label?>
 
 <BorderPane fx:id="borderPane" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.easyquiz.controller.StudentMainController"
-            prefHeight="600" prefWidth="800">
-    <left>
-        <VBox spacing="10" style="-fx-padding: 10; -fx-background-color: #f0f0f0;">
-            <Button text="Home" onAction="#showHome" prefWidth="100"/>
-            <Button text="History" onAction="#showHistory" prefWidth="100"/>
-            <Button text="Take Quiz" onAction="#showQuiz" prefWidth="100"/>
-            <Pane VBox.vgrow="ALWAYS" />
-            <Button text="Logout" onAction="#handleLogout" prefWidth="100"/>
-        </VBox>
-    </left>
+            prefHeight="600" prefWidth="800"
+            stylesheets="@styles/student_main.css"
+            styleClass="root">
+    <top>
+        <HBox spacing="10" styleClass="navbar">
+            <Label text="EasyQuiz" styleClass="logo"/>
+            <Pane HBox.hgrow="ALWAYS" />
+            <Button text="Home" onAction="#showHome" prefWidth="100" styleClass="bar"/>
+            <Button text="History" onAction="#showHistory" prefWidth="100" styleClass="bar"/>
+            <Button text="Take Quiz" onAction="#showQuiz" prefWidth="100" styleClass="bar"/>
+            <Button text="Logout" onAction="#handleLogout" prefWidth="100" styleClass="bar" fx:id="logoutBtn"/>
+        </HBox>
+    </top>
     <center>
         
     </center>
