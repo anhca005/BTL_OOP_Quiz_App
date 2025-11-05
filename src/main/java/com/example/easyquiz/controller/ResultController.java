@@ -32,8 +32,8 @@ public class ResultController {
         int correct = (int) Math.round((finalScore / 10.0) * totalQuestions);
         int wrong = totalQuestions - correct;
 
-        correcttext.setText("Correct Answers : " + correct);
-        wrongtext.setText("Incorrect Answers : " + wrong);
+        correcttext.setText("Số câu đúng: " + correct);
+        wrongtext.setText("Số câu sai: " + wrong);
 
         marks.setText(correct + "/" + totalQuestions);
         float correctf = (float) correct / totalQuestions;
@@ -42,18 +42,18 @@ public class ResultController {
         float wrongf = (float) wrong / totalQuestions;
         wrong_progress.setProgress(wrongf);
 
-        markstext.setText(correct + " Marks Scored");
+        markstext.setText(correct + " Điểm");
 
         if (correctf < 0.2) {
-            remark.setText("Oh no..! You have failed the quiz. It seems that you need to improve your general knowledge. Practice daily!");
+            remark.setText("Ôi không..! Bạn đã trượt bài kiểm tra. Có vẻ như bạn cần cải thiện kiến ​​thức chung của mình. Hãy luyện tập hàng ngày!");
         } else if (correctf < 0.5) {
-            remark.setText("Oops..! You have scored less marks. It seems like you need to improve your general knowledge.");
+            remark.setText("Rất tiếc..! Bạn đã đạt được ít điểm hơn. Có vẻ như bạn cần cải thiện kiến ​​thức chung của mình.");
         } else if (correctf <= 0.7) {
-            remark.setText("Good. A bit more improvement might help you to get better results. Practice is the key to success.");
+            remark.setText("Tốt. Cải thiện một chút nữa có thể giúp bạn có kết quả tốt hơn. Thực hành là chìa khóa thành công.");
         } else if (correctf <= 0.9) {
-            remark.setText("Congratulations! Its your hardwork and determination which helped you to score good marks.");
+            remark.setText("Xin chúc mừng! Chính sự chăm chỉ và quyết tâm của bạn đã giúp bạn ghi được điểm cao.");
         } else {
-            remark.setText("Congratulations! You have passed the quiz with full marks because of your hardwork and dedication towards studies. Keep it up!");
+            remark.setText("Xin chúc mừng! Bạn đã vượt qua bài kiểm tra với số điểm tuyệt đối vì sự chăm chỉ và cống hiến của bạn trong học tập. Hãy tiếp tục phát huy!");
         }
     }
 

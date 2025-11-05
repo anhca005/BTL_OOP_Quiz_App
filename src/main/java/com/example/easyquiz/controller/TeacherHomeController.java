@@ -20,7 +20,7 @@ public class TeacherHomeController {
     public void setCurrentUser(User user) {
         this.currentUser = user;
         if (welcomeLabel != null) {
-            welcomeLabel.setText("Welcome, teacher " + user.getUser_name() + "!");
+            welcomeLabel.setText("Chào mừng, giảng viên " + user.getUser_name() + "!");
         }
     }
 
@@ -51,7 +51,7 @@ public class TeacherHomeController {
 
             Stage stage = (Stage) welcomeLabel.getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("Login");
+            stage.setTitle("Đăng nhập");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -70,7 +70,7 @@ public class TeacherHomeController {
 
             Stage stage = (Stage) welcomeLabel.getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("Your Quizzes");
+            stage.setTitle("Các bài kiểm tra của bạn");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -89,7 +89,7 @@ public class TeacherHomeController {
 
             Stage stage = (Stage) welcomeLabel.getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("Class Management");
+            stage.setTitle("Quản lý lớp học");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -17,10 +17,10 @@
         <HBox spacing="10" styleClass="navbar">
             <Label text="EasyQuiz" styleClass="logo"/>
             <Pane HBox.hgrow="ALWAYS" />
-            <Button text="Home" onAction="#showHome" prefWidth="100" styleClass="bar"/>
-            <Button text="Library" onAction="#showLibrary" prefWidth="100" styleClass="bar"/>
-            <Button text="Class" onAction="#showClass" prefWidth="100" styleClass="bar"/>
-            <Button text="Logout" onAction="#handleLogout" prefWidth="100" styleClass="bar" fx:id="logoutBtn"/>
+            <Button text="Trang chủ" onAction="#showHome" prefWidth="100" styleClass="bar"/>
+            <Button text="Thư viện" onAction="#showLibrary" prefWidth="100" styleClass="bar"/>
+            <Button text="Lớp học" onAction="#showClass" prefWidth="100" styleClass="bar"/>
+            <Button text="Đăng xuất" onAction="#handleLogout" prefWidth="100" styleClass="bar" fx:id="logoutBtn"/>
         </HBox>
     </top>
     <center>

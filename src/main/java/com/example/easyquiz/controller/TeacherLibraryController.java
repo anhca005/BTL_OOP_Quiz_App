@@ -56,7 +56,7 @@ public class TeacherLibraryController {
 
     public void setCurrentUser(User user) {
         this.currentUser = user;
-        teacherNameLabel.setText("Your Library, " + user.getUser_name());
+        teacherNameLabel.setText("Thư viện của bạn, " + user.getUser_name());
         loadTeacherQuizzes();
     }
 
@@ -77,23 +77,23 @@ public class TeacherLibraryController {
     private void handleDeleteQuiz() {
         Quiz selectedQuiz = quizListView.getSelectionModel().getSelectedItem();
         if (selectedQuiz == null) {
-            AlertUtils.showAlert(Alert.AlertType.WARNING, "No Selection", "Please select a quiz to delete.");
+            AlertUtils.showAlert(Alert.AlertType.WARNING, "Chưa chọn", "Vui lòng chọn một bài kiểm tra để xóa.");
             return;
         }
 
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmation.setTitle("Confirm Deletion");
-        confirmation.setHeaderText("Are you sure you want to delete the quiz: " + selectedQuiz.getTitle() + "?");
-        confirmation.setContentText("This action cannot be undone.");
+        confirmation.setTitle("Xác nhận xóa");
+        confirmation.setHeaderText("Bạn có chắc chắn muốn xóa bài kiểm tra: " + selectedQuiz.getTitle() + "?");
+        confirmation.setContentText("Hành động này không thể hoàn tác.");
 
         Optional<ButtonType> result = confirmation.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             boolean deleted = QuizDAO.deleteQuiz(selectedQuiz.getQuiz_id());
             if (deleted) {
                 loadTeacherQuizzes(); // Refresh the list
-                AlertUtils.showAlert(Alert.AlertType.INFORMATION, "Success", "The quiz has been deleted.");
+                AlertUtils.showAlert(Alert.AlertType.INFORMATION, "Thành công", "Bài kiểm tra đã được xóa.");
             } else {
-                AlertUtils.showAlert(Alert.AlertType.ERROR, "Error", "Failed to delete the quiz.");
+                AlertUtils.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể xóa bài kiểm tra.");
             }
         }
     }

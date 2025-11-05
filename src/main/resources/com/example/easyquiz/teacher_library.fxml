@@ -20,7 +20,7 @@
 
             <!-- Tiêu đề -->
             <Label fx:id="teacherNameLabel" styleClass="title-label"/>
-            <Label text="Where all your questions are stored." styleClass="sub-title"/>
+            <Label text="Nơi lưu trữ tất cả các câu hỏi của bạn." styleClass="sub-title"/>
 
             <Region prefHeight="30"/>
 

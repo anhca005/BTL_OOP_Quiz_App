@@ -17,8 +17,8 @@
          <children>
             <!-- Tiêu đề -->
             <Region prefHeight="80"/>
-            <Label text="Your classes" styleClass="title-label"/>
-            <Label text="Where you can see all the classes you’ve created." styleClass="sub-title"/>
+            <Label text="Các lớp học của bạn" styleClass="title-label"/>
+            <Label text="Nơi bạn có thể xem tất cả các lớp học đã tạo." styleClass="sub-title"/>
             <Region prefHeight="100"/>
             <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0">
                <children>

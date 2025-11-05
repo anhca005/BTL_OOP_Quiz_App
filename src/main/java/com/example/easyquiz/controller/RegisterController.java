@@ -47,13 +47,13 @@ public class RegisterController {
     @FXML
     private void initialize() {
         // Vai trò mặc định
-        roleChoiceBox.getItems().addAll("student", "teacher");
-        roleChoiceBox.setValue("student");
+        roleChoiceBox.getItems().addAll("Học sinh", "Giáo viên");
+        roleChoiceBox.setValue("Học sinh");
 
         // Show/hide fields based on role
-        studentCodeField.visibleProperty().bind(roleChoiceBox.valueProperty().isEqualTo("student"));
+        studentCodeField.visibleProperty().bind(roleChoiceBox.valueProperty().isEqualTo("Học sinh"));
         studentCodeField.managedProperty().bind(studentCodeField.visibleProperty());
-        classField.visibleProperty().bind(roleChoiceBox.valueProperty().isEqualTo("student"));
+        classField.visibleProperty().bind(roleChoiceBox.valueProperty().isEqualTo("Học sinh"));
         classField.managedProperty().bind(classField.visibleProperty());
 
         registerBtn.setOnAction(this::handleRegister);
@@ -75,7 +75,7 @@ public class RegisterController {
             return;
         }
 
-        if ("student".equals(role) && (className.isEmpty() || studentCode.isEmpty())) {
+        if ("Học sinh".equals(role) && (className.isEmpty() || studentCode.isEmpty())) {
             AlertUtils.showAlert(Alert.AlertType.WARNING, "Thiếu thông tin", "Học sinh phải nhập đầy đủ Mã sinh viên và Tên lớp học.");
             return;
         }
@@ -91,7 +91,7 @@ public class RegisterController {
         }
 
         Integer classId = null;
-        if ("student".equals(role)) {
+        if ("Học sinh".equals(role)) {
             if (UserDAO.isStudentCodeTaken(studentCode)) {
                 AlertUtils.showAlert(Alert.AlertType.ERROR, "Mã sinh viên đã tồn tại", "Vui lòng chọn mã sinh viên khác.");
                 return;
@@ -113,7 +113,7 @@ public class RegisterController {
         user.setRole(role);
         user.setAverage_score(0.0);
         user.setClass_id(classId);
-        if ("student".equals(role)) {
+        if ("Học sinh".equals(role)) {
             user.setStudentCode(studentCode);
         }
 

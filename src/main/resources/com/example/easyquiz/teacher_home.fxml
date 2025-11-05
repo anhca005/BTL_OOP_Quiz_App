@@ -14,8 +14,8 @@
             stylesheets="@styles/teacher_home.css"
             styleClass="root">
     <VBox alignment="CENTER" spacing="20" layoutX="0" layoutY="0" prefWidth="900" prefHeight="540">
-        <Label fx:id="welcomeLabel" text="Welcome, teacher!" styleClass="welcome-text"/>
-        <Button text="Create quiz" onAction="#handleManageQuestions" styleClass="create-btn"/>
+        <Label fx:id="welcomeLabel" text="Chào mừng, giảng viên!" styleClass="welcome-text"/>
+        <Button text="Tạo bài kiểm tra" onAction="#handleManageQuestions" styleClass="create-btn"/>
     </VBox>
 
 </AnchorPane>

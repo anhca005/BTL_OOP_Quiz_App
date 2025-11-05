@@ -21,7 +21,7 @@
          <children>
             <Label fx:id="welcomeLabel"/>
             <Label fx:id="studentCodeLabel"/>
-            <Button onAction="#handleDoQuiz" text="Enter code" styleClass="enter-code"/>
+            <Button onAction="#handleDoQuiz" text="Nhập mã" styleClass="enter-code"/>
             <!-- <Button onAction="#handleViewHistory" prefWidth="200.0" text="📜 Xem lịch sử làm bài" /> -->
          </children>
       </VBox>

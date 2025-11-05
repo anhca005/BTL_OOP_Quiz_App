@@ -84,14 +84,14 @@ public class StudentQuizController {
             Quiz quiz = QuizDAO.getQuizById(currentQuizId);
 
             if (quiz == null) {
-                AlertUtils.showAlert(Alert.AlertType.WARNING, "Warning", "Quiz ID not found.");
+                AlertUtils.showAlert(Alert.AlertType.WARNING, "Cảnh báo", "Không tìm thấy ID bài kiểm tra.");
                 return;
             }
 
             questions = QuestionDAO.getQuestionsByQuiz(currentQuizId);
 
             if (questions.isEmpty()) {
-                AlertUtils.showAlert(Alert.AlertType.WARNING, "Warning", "No questions found for this quiz ID.");
+                AlertUtils.showAlert(Alert.AlertType.WARNING, "Cảnh báo", "Không tìm thấy câu hỏi nào cho ID bài kiểm tra này.");
                 return;
             }
 
@@ -115,7 +115,7 @@ public class StudentQuizController {
             startTimer(quiz.getDuration());
 
         } catch (NumberFormatException e) {
-            AlertUtils.showAlert(Alert.AlertType.WARNING, "Invalid ID", "Invalid Quiz ID format.");
+            AlertUtils.showAlert(Alert.AlertType.WARNING, "ID không hợp lệ", "Định dạng ID bài kiểm tra không hợp lệ.");
         }
     }
 
@@ -126,7 +126,7 @@ public class StudentQuizController {
             int seconds = newVal.intValue();
             int mins = seconds / 60;
             int secs = seconds % 60;
-            timerLabel.setText(String.format("Time: %02d:%02d", mins, secs));
+            timerLabel.setText(String.format("Thời gian: %02d:%02d", mins, secs));
         });
 
         timeline = new Timeline();
@@ -231,9 +231,9 @@ public class StudentQuizController {
     @FXML
     private void handleSubmitEarly() {
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmation.setTitle("Confirm Submission");
-        confirmation.setHeaderText("Are you sure you want to submit your quiz?");
-        confirmation.setContentText("This action cannot be undone.");
+        confirmation.setTitle("Xác nhận nộp bài");
+        confirmation.setHeaderText("Bạn có chắc chắn muốn nộp bài kiểm tra của mình không?");
+        confirmation.setContentText("Hành động này không thể hoàn tác.");
 
         Optional<ButtonType> result = confirmation.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
